@@ -10,7 +10,7 @@ class Config:
     DB_HOST = 'localhost'
     DB_NAME = 'flask_auth_db'
     DB_USER = 'postgres'
-    DB_PASSWORD = 'dhruv'
+    DB_PASSWORD = 'astha'
     DB_PORT = '5432'
     
     # Session configuration

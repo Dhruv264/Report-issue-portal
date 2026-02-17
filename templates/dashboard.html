@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+
+    <!-- Tailwind CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#2563eb"
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-slate-100 font-sans">
+
+<div class="flex min-h-screen">
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-white shadow-lg p-6 hidden md:block">
+        <h2 class="text-xl font-extrabold text-primary mb-8">AMC Portal</h2>
+
+        <nav class="space-y-4 text-sm font-semibold">
+            <a href="/dashboard" class="flex items-center gap-3 text-primary">
+                <span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+            <a href="/my-issues" class="flex items-center gap-3 text-slate-600 hover:text-primary">
+                <span class="material-symbols-outlined">list</span> My Reports
+            </a>
+            <a href="/report-issue" class="flex items-center gap-3 text-slate-600 hover:text-primary">
+                <span class="material-symbols-outlined">bug_report</span> Report Issue
+            </a>
+            <a href="/delete-issues" class="flex items-center gap-3 text-red-500 hover:text-red-600">
+                <span class="material-symbols-outlined">delete</span> Delete Issues
+            </a>
+        </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 p-8">
+
+        <!-- HEADER -->
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-3xl font-extrabold text-slate-800">
+                    Welcome back, {{ name }}
+                </h1>
+                <p class="text-slate-500 text-sm">Have a great day 👋</p>
+            </div>
+
+            <form action="/logout" method="post">
+                <button class="bg-slate-800 text-white px-5 py-2 rounded-lg font-semibold hover:bg-black">
+                    Logout
+                </button>
+            </form>
+        </div>
+
+        <!-- STATS -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
+
+            <!-- TOTAL -->
+            <div class="bg-white p-6 rounded-xl shadow">
+                <p class="text-sm text-slate-500 font-semibold">TOTAL REPORTS</p>
+                <h3 class="text-3xl font-black text-slate-800">
+                    {{ total_reports }}
+                </h3>
+            </div>
+
+            <!-- RESOLVED -->
+            <div class="bg-white p-6 rounded-xl shadow border-l-4 border-green-500">
+                <p class="text-sm text-slate-500 font-semibold">RESOLVED</p>
+                <h3 class="text-3xl font-black text-green-600">
+                    {{ resolved }}
+                </h3>
+            </div>
+
+            <!-- IN PROGRESS -->
+            <div class="bg-white p-6 rounded-xl shadow border-l-4 border-orange-500">
+                <p class="text-sm text-slate-500 font-semibold">IN PROGRESS</p>
+                <h3 class="text-3xl font-black text-orange-500">
+                    {{ in_progress }}
+                </h3>
+            </div>
+
+            <!-- PENDING -->
+            <div class="bg-white p-6 rounded-xl shadow border-l-4 border-red-500">
+                <p class="text-sm text-slate-500 font-semibold">PENDING</p>
+                <h3 class="text-3xl font-black text-red-500">
+                    {{ pending }}
+                </h3>
+            </div>
+
+        </div>
+
+        <!-- RECENT ISSUES -->
+        <div class="bg-white rounded-xl shadow p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-lg font-bold text-slate-800">My Recent Issues</h2>
+                <a href="/my-issues" class="text-primary font-semibold text-sm hover:underline">
+                    View All
+                </a>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead>
+                        <tr class="text-slate-500 border-b">
+                            <th class="py-3 text-left">Title</th>
+                            <th class="text-left">Category</th>
+                            <th class="text-left">Status</th>
+                            <th class="text-left">Date</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y">
+                        {% for issue in issues[:5] %}
+                        <tr>
+                            <td class="py-3 font-semibold">{{ issue.title }}</td>
+                            <td>{{ issue.category }}</td>
+                            <td>
+                                <span class="px-3 py-1 rounded-full text-xs font-bold
+                                {% if issue.status == 'Resolved' %}
+                                    bg-green-100 text-green-600
+                                {% elif issue.status == 'Pending' %}
+                                    bg-red-100 text-red-600
+                                {% else %}
+                                    bg-orange-100 text-orange-600
+                                {% endif %}
+                                ">
+                                {{ issue.status }}
+                                </span>
+                            </td>
+                            <td>{{ issue.created_at.strftime('%d %b %Y') }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% if not issues %}
+                <p class="text-center text-slate-500 mt-6">No issues reported yet.</p>
+                {% endif %}
+            </div>
+        </div>
+
+    </main>
+</div>
+
+</body>
+</html>

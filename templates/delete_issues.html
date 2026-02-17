@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete My Issues</title>
+    <style>
+        body {
+            font-family: Poppins, sans-serif;
+            background: #f1f5f9;
+            padding: 40px;
+        }
+
+        h2 {
+            color: #ef4444;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+
+        th {
+            background: #ef4444;
+            color: white;
+        }
+
+        .pending {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .resolved {
+            color: green;
+            font-weight: bold;
+        }
+
+        .actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .delete-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            opacity: 0.9;
+        }
+
+        a {
+            text-decoration: none;
+            font-weight: 600;
+            color: #2563eb;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>⚠ Delete Your Issues</h2>
+
+{% if issues %}
+
+<!-- ✅ CORRECT ENDPOINT -->
+<form method="POST" action="/delete-issues">
+
+<table>
+    <tr>
+        <th>Select</th>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Date</th>
+    </tr>
+
+    {% for issue in issues %}
+    <tr>
+        <td>
+            <input type="checkbox" name="issue_ids" value="{{ issue.id }}">
+        </td>
+        <td>{{ issue.title }}</td>
+        <td>{{ issue.category }}</td>
+        <td class="{{ issue.status|lower }}">{{ issue.status }}</td>
+        <td>{{ issue.created_at.strftime('%d %b %Y') }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<div class="actions">
+    <a href="/dashboard">← Back to Dashboard</a>
+
+    <button type="submit" class="delete-btn">
+        🗑 Delete Selected Issues
+    </button>
+</div>
+
+</form>
+
+{% else %}
+<p>You have no issues to delete.</p>
+<a href="/dashboard">← Back to Dashboard</a>
+{% endif %}
+
+</body>
+</html>

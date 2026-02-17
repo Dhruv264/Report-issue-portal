@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Issues</title>
+    <style>
+        body {
+            font-family: Poppins, sans-serif;
+            background: #f1f5f9;
+            padding: 40px;
+        }
+        h2 {
+            color: #2563eb;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 14px;
+            border-bottom: 1px solid #eee;
+        }
+        th {
+            background: #2563eb;
+            color: white;
+        }
+        .pending { color: orange; font-weight: bold; }
+        .resolved { color: green; font-weight: bold; }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            font-weight: 600;
+            color: #2563eb;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Hello {{ name }}, these are your issues</h2>
+
+{% if issues %}
+<table>
+    <tr>
+        <th>Title</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Date</th>
+    </tr>
+
+    {% for issue in issues %}
+    <tr>
+        <td>{{ issue.title }}</td>
+        <td>{{ issue.category }}</td>
+        <td class="{{ issue.status|lower }}">{{ issue.status }}</td>
+        <td>{{ issue.created_at.strftime('%d %b %Y') }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% else %}
+<p>You have not reported any issues yet.</p>
+{% endif %}
+
+<a href="/dashboard">← Back to Dashboard</a>
+
+</body>
+</html>
