@@ -3,102 +3,54 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import re
+from routes.worker_routes import worker_bp
 from routes.admin_routes import admin_bp
-
-
 from config import Config
 from db import get_db_connection
-from routes.worker_routes import worker_bp   # ✅ IMPORT ONCE ONLY
-from routes.admin_routes import admin_bp     # ✅ NEW: ADMIN BLUEPRINT
+from werkzeug.utils import secure_filename
+import os
+import uuid
 
+# =========================
+# FLASK APP (FIXED)
+# =========================
+app = Flask(
+    __name__,
+    static_folder='static',
+    static_url_path='/static'
+)
 
-app = Flask(__name__)
 app.config.from_object(Config)
-
-# REQUIRED for session + flash
 app.secret_key = app.config.get("SECRET_KEY", "dev_secret_key")
 
+# =========================
+# UPLOAD CONFIG (FIXED)
+# =========================
+UPLOAD_FOLDER = os.path.join(app.static_folder, 'uploads')
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
-# --------------------------------------------------
-# INITIALIZE DATABASE
-# --------------------------------------------------
-def init_db():
-    conn = get_db_connection()
-    if not conn:
-        return
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
-    try:
-        cur = conn.cursor()
-
-        # USERS
-        cur.execute("""
-            CREATE TABLE IF NOT EXISTS userf (
-                id SERIAL PRIMARY KEY,
-                username VARCHAR(80) UNIQUE NOT NULL,
-                email VARCHAR(120) UNIQUE NOT NULL,
-                password_hash VARCHAR(255) NOT NULL,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        """)
-
-        # ISSUES
-        cur.execute("""
-            CREATE TABLE IF NOT EXISTS issues (
-                id SERIAL PRIMARY KEY,
-                user_id INTEGER REFERENCES userf(id) ON DELETE CASCADE,
-                title VARCHAR(100) NOT NULL,
-                category VARCHAR(50) NOT NULL,
-                description TEXT NOT NULL,
-                area VARCHAR(100),
-                pincode VARCHAR(10),
-                status VARCHAR(20) DEFAULT 'Pending',
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        """)
-
-        # WORKERS
-        cur.execute("""
-            CREATE TABLE IF NOT EXISTS workers (
-                id SERIAL PRIMARY KEY,
-                name VARCHAR(100) NOT NULL,
-                email VARCHAR(120) UNIQUE NOT NULL,
-                password_hash TEXT NOT NULL,
-                category VARCHAR(50) NOT NULL,
-                status VARCHAR(20) DEFAULT 'available',
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        """)
-
-        conn.commit()
-        cur.close()
-        conn.close()
-
-    except Exception as e:
-        print("DB init error:", e)
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 # --------------------------------------------------
-# EMAIL VALIDATION
-# --------------------------------------------------
-def is_valid_email(email):
-    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
-    return re.match(pattern, email)
-
-
-# --------------------------------------------------
-# ROUTES (USER)
+# HOME / AUTH
 # --------------------------------------------------
 @app.route('/')
 def home():
     return render_template('Home.html')
-
 
 @app.route('/auth')
 def auth():
     return render_template('index.html')
 
 
-# ---------------- SIGNUP ----------------
+# --------------------------------------------------
+# SIGNUP
+# --------------------------------------------------
 @app.route('/signup', methods=['POST'])
 def signup():
     username = request.form.get('username', '').strip()
@@ -108,11 +60,9 @@ def signup():
     if not username or not email or not password:
         return jsonify(success=False, message="Please fill all fields"), 400
 
-    if not is_valid_email(email):
+    pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    if not re.match(pattern, email):
         return jsonify(success=False, message="Invalid email"), 400
-
-    if len(password) < 6:
-        return jsonify(success=False, message="Password too short"), 400
 
     conn = get_db_connection()
     cur = conn.cursor()
@@ -137,7 +87,9 @@ def signup():
     return jsonify(success=True, redirect=url_for('auth'))
 
 
-# ---------------- LOGIN ----------------
+# --------------------------------------------------
+# LOGIN
+# --------------------------------------------------
 @app.route('/login', methods=['POST'])
 def login():
     username = request.form.get('username')
@@ -148,6 +100,7 @@ def login():
 
     cur.execute("SELECT * FROM userf WHERE username=%s", (username,))
     user = cur.fetchone()
+
     cur.close()
     conn.close()
 
@@ -160,7 +113,9 @@ def login():
     return jsonify(success=True, redirect=url_for('dashboard'))
 
 
-# ---------------- DASHBOARD ----------------
+# --------------------------------------------------
+# DASHBOARD
+# --------------------------------------------------
 @app.route('/dashboard')
 def dashboard():
     if 'user_id' not in session:
@@ -178,78 +133,61 @@ def dashboard():
     """, (session['user_id'],))
     issues = cur.fetchall()
 
-    cur.execute("""
-        SELECT COUNT(*) AS total
-        FROM issues
-        WHERE user_id = %s
-    """, (session['user_id'],))
-    total_reports = cur.fetchone()['total']
-
-    cur.execute("""
-        SELECT status, COUNT(*) AS count
-        FROM issues
-        WHERE user_id = %s
-        GROUP BY status
-    """, (session['user_id'],))
-
-    status_rows = cur.fetchall()
-    resolved = in_progress = pending = 0
-
-    for row in status_rows:
-        if row['status'] == 'Resolved':
-            resolved = row['count']
-        elif row['status'] == 'In Progress':
-            in_progress = row['count']
-        elif row['status'] == 'Pending':
-            pending = row['count']
-
     cur.close()
     conn.close()
 
-    return render_template(
-        'dashboard.html',
-        name=session['username'],
-        issues=issues,
-        total_reports=total_reports,
-        resolved=resolved,
-        in_progress=in_progress,
-        pending=pending
-    )
+    return render_template('dashboard.html', name=session['username'], issues=issues)
 
 
-# ---------------- REPORT ISSUE ----------------
+# --------------------------------------------------
+# REPORT ISSUE (PHOTO FIXED)
+# --------------------------------------------------
 @app.route('/report-issue', methods=['GET', 'POST'])
 def report_issue():
     if 'user_id' not in session:
         return redirect(url_for('auth'))
 
     if request.method == 'POST':
+        photo_filename = None
+
+        if 'photo' in request.files:
+            file = request.files['photo']
+            if file and file.filename != '' and allowed_file(file.filename):
+                ext = file.filename.rsplit('.', 1)[1].lower()
+                photo_filename = f"{uuid.uuid4()}.{ext}"
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], photo_filename))
+
         conn = get_db_connection()
         cur = conn.cursor()
 
         cur.execute("""
-            INSERT INTO issues (user_id, title, category, description, area, pincode)
-            VALUES (%s, %s, %s, %s, %s, %s)
+            INSERT INTO issues (
+                user_id, title, category, description, area, pincode, photo_filename
+            )
+            VALUES (%s, %s, %s, %s, %s, %s, %s)
         """, (
             session['user_id'],
             request.form.get('title'),
             request.form.get('category'),
             request.form.get('description'),
             request.form.get('area'),
-            request.form.get('pincode')
+            request.form.get('pincode'),
+            photo_filename
         ))
 
         conn.commit()
         cur.close()
         conn.close()
-        flash("✅ Issue reported successfully")
 
+        flash("✅ Issue reported successfully")
         return redirect(url_for('dashboard'))
 
-    return render_template('report_issue.html', name=session['username'])
+    return render_template('report_issue.html')
 
 
-# ---------------- MY ISSUES ----------------
+# --------------------------------------------------
+# MY ISSUES (🔥 MAIN FIX HERE)
+# --------------------------------------------------
 @app.route('/my-issues')
 def my_issues():
     if 'user_id' not in session:
@@ -259,7 +197,12 @@ def my_issues():
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
     cur.execute("""
-        SELECT title, category, status, created_at
+        SELECT
+            title,
+            category,
+            status,
+            created_at,
+            photo_filename
         FROM issues
         WHERE user_id = %s
         ORDER BY created_at DESC
@@ -271,7 +214,6 @@ def my_issues():
 
     return render_template('my_issues.html', issues=issues, name=session['username'])
 
-
 # ---------------- DELETE ISSUES ----------------
 @app.route('/delete-issues', methods=['GET', 'POST'])
 def delete_issues():
@@ -282,23 +224,25 @@ def delete_issues():
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
     if request.method == 'POST':
-        issue_ids = [int(i) for i in request.form.getlist('issue_ids')]
+        issue_ids = request.form.getlist('issue_ids')
 
         if issue_ids:
             cur.execute("""
                 DELETE FROM issues
-                WHERE id = ANY(%s::int[]) AND user_id = %s
+                WHERE id = ANY(%s::int[])
+                AND user_id = %s
             """, (issue_ids, session['user_id']))
             conn.commit()
 
         cur.close()
         conn.close()
+        flash("🗑️ Selected issues deleted successfully")
         return redirect(url_for('delete_issues'))
 
     cur.execute("""
-        SELECT id, title, category, status, created_at
+        SELECT id, title, category, status, created_at, photo_filename
         FROM issues
-        WHERE user_id=%s
+        WHERE user_id = %s
         ORDER BY created_at DESC
     """, (session['user_id'],))
 
@@ -308,8 +252,9 @@ def delete_issues():
 
     return render_template('delete_issues.html', issues=issues)
 
-
-# ---------------- LOGOUT ----------------
+# --------------------------------------------------
+# LOGOUT
+# --------------------------------------------------
 @app.route('/logout', methods=['POST'])
 def logout():
     session.clear()
@@ -317,13 +262,12 @@ def logout():
 
 
 # --------------------------------------------------
-# REGISTER BLUEPRINTS (ONCE)
+# BLUEPRINTS
 # --------------------------------------------------
 app.register_blueprint(worker_bp)
-app.register_blueprint(admin_bp)   # ✅ ADMIN REGISTERED
+app.register_blueprint(admin_bp)
 
 
 # --------------------------------------------------
 if __name__ == '__main__':
-    init_db()
     app.run(debug=True)
