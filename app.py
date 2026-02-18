@@ -3,10 +3,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import re
+from routes.admin_routes import admin_bp
+
 
 from config import Config
 from db import get_db_connection
 from routes.worker_routes import worker_bp   # ✅ IMPORT ONCE ONLY
+from routes.admin_routes import admin_bp     # ✅ NEW: ADMIN BLUEPRINT
 
 
 app = Flask(__name__)
@@ -182,7 +185,6 @@ def dashboard():
     """, (session['user_id'],))
     total_reports = cur.fetchone()['total']
 
-    # ✅ FIXED LINE (ONLY CHANGE)
     cur.execute("""
         SELECT status, COUNT(*) AS count
         FROM issues
@@ -315,9 +317,10 @@ def logout():
 
 
 # --------------------------------------------------
-# REGISTER WORKER BLUEPRINT (ONCE)
+# REGISTER BLUEPRINTS (ONCE)
 # --------------------------------------------------
 app.register_blueprint(worker_bp)
+app.register_blueprint(admin_bp)   # ✅ ADMIN REGISTERED
 
 
 # --------------------------------------------------

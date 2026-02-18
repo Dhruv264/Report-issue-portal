@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assign Worker</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f7fb;
+            padding: 40px;
+        }
+        .box {
+            background: white;
+            padding: 30px;
+            max-width: 500px;
+            margin: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>Assign Worker</h2>
+
+    <p><b>Issue:</b> {{ issue.title }}</p>
+    <p><b>Category:</b> {{ issue.category }}</p>
+
+    <form method="POST" action="/admin/assign-worker">
+        <input type="hidden" name="issue_id" value="{{ issue.id }}">
+
+        <label>Select Worker:</label>
+        <select name="worker_id" required>
+            {% for worker in workers %}
+                <option value="{{ worker.id }}">
+                    {{ worker.name }} ({{ worker.email }})
+                </option>
+            {% endfor %}
+        </select>
+
+        <button type="submit">Assign Worker</button>
+    </form>
+</div>
+
+</body>
+</html>
