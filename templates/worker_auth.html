@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Worker Access | Amdavad Portal</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    background:linear-gradient(135deg,#f5f7fa,#c3cfe2);
+}
+
+/* MAIN CONTAINER */
+.container{
+    position:relative;
+    width:850px;
+    height:550px;
+    background:rgba(255,255,255,0.55);
+    backdrop-filter:blur(15px);
+    border-radius:20px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.15);
+    overflow:hidden;
+}
+
+/* NOTIFICATION */
+#notification{
+    position:absolute;
+    top:-50px;
+    width:100%;
+    height:45px;
+    background:#e74c3c;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:14px;
+    font-weight:600;
+    transition:0.4s;
+    z-index:300;
+}
+#notification.show{top:0;}
+#notification.success{background:#2ecc71}
+
+/* FORMS */
+.form-container{
+    position:absolute;
+    width:50%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    padding:0 50px;
+    transition:0.6s;
+}
+
+/* LOGIN */
+.login-container{
+    left:0;
+    z-index:5;
+}
+
+/* REGISTER */
+.register-container{
+    left:0;
+    opacity:0;
+    z-index:1;
+}
+
+/* ACTIVE STATE */
+.container.active .login-container{
+    transform:translateX(100%);
+    opacity:0;
+    z-index:1;
+}
+
+.container.active .register-container{
+    transform:translateX(100%);
+    opacity:1;
+    z-index:5;
+}
+
+/* INPUTS */
+h1{
+    margin-bottom:20px;
+    font-size:30px;
+}
+
+.input-box{
+    width:100%;
+    margin:10px 0;
+    position:relative;
+}
+
+.input-box i{
+    position:absolute;
+    top:50%;
+    left:14px;
+    transform:translateY(-50%);
+    color:#777;
+}
+
+.input-box input,
+.input-box select{
+    width:100%;
+    padding:12px 14px 12px 40px;
+    border-radius:8px;
+    border:1px solid #ddd;
+    outline:none;
+}
+
+/* BUTTON */
+button{
+    margin-top:20px;
+    padding:14px 40px;
+    border-radius:50px;
+    border:none;
+    background:#2d87d6;
+    color:#fff;
+    font-weight:600;
+    cursor:pointer;
+}
+
+/* OVERLAY */
+.overlay-container{
+    position:absolute;
+    top:0;
+    left:50%;
+    width:50%;
+    height:100%;
+    overflow:hidden;
+    transition:0.6s;
+    z-index:2;
+    pointer-events:none; /* 🔥 IMPORTANT FIX */
+}
+
+.overlay{
+    background:linear-gradient(to right,#2d87d6,#00c6ff);
+    color:white;
+    position:relative;
+    left:-100%;
+    width:200%;
+    height:100%;
+    transition:0.6s;
+}
+
+.container.active .overlay-container{
+    transform:translateX(-100%);
+}
+
+.container.active .overlay{
+    transform:translateX(50%);
+}
+
+.overlay-panel{
+    position:absolute;
+    width:50%;
+    height:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    text-align:center;
+    padding:0 40px;
+}
+
+.overlay-left{transform:translateX(-20%)}
+.overlay-right{right:0}
+
+.container.active .overlay-left{transform:translateX(0)}
+.container.active .overlay-right{transform:translateX(20%)}
+
+/* ENABLE CLICKS ON BUTTONS */
+.overlay-panel button{
+    pointer-events:auto;
+    background:transparent;
+    border:2px solid #fff;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container" id="container">
+
+<div id="notification">Error</div>
+
+<!-- REGISTER -->
+<div class="form-container register-container">
+<h1>Worker Register</h1>
+<form id="worker-register">
+<div class="input-box"><i class="fa fa-user"></i><input name="name" placeholder="Name"></div>
+<div class="input-box"><i class="fa fa-envelope"></i><input name="email" placeholder="Email"></div>
+<div class="input-box"><i class="fa fa-lock"></i><input type="password" name="password" placeholder="Password"></div>
+<div class="input-box">
+<i class="fa fa-briefcase"></i>
+<select name="category">
+<option value="">Select Category</option>
+<option value="Roads & Potholes">Roads & Potholes</option>
+<option value="Waste Management & Garbage">Waste Management & Garbage</option>
+<option value="Water Suppy & Drainage">Water Suppy & Drainage</option>
+<option value="Streetlights">Streetlights</option>
+<option value="Stray Animals">Stray Animals</option>
+</select>
+</div>
+<button type="submit">Register</button>
+</form>
+</div>
+
+<!-- LOGIN -->
+<div class="form-container login-container">
+<h1>Worker Login</h1>
+<form id="worker-login">
+<div class="input-box"><i class="fa fa-envelope"></i><input name="email" placeholder="Email"></div>
+<div class="input-box"><i class="fa fa-lock"></i><input type="password" name="password" placeholder="Password"></div>
+<button type="submit">Login</button>
+</form>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay-container">
+<div class="overlay">
+<div class="overlay-panel overlay-left">
+<h1>Welcome Back!</h1>
+<p>Login to continue work</p>
+<button onclick="toggle()">Login</button>
+</div>
+<div class="overlay-panel overlay-right">
+<h1>Hello Worker!</h1>
+<p>Register to start resolving issues</p>
+<button onclick="toggle()">Register</button>
+</div>
+</div>
+</div>
+
+</div>
+
+<script>
+const container=document.getElementById("container");
+const notif=document.getElementById("notification");
+
+function toggle(){container.classList.toggle("active");}
+
+function show(msg,ok=false){
+notif.innerText=msg;
+notif.className=ok?"success show":"show";
+setTimeout(()=>notif.classList.remove("show"),3000);
+}
+
+/* REGISTER */
+document.getElementById("worker-register").onsubmit=async e=>{
+e.preventDefault();
+const r=await fetch("/worker/register",{method:"POST",body:new FormData(e.target)});
+const d=await r.json();
+d.success?location.href=d.redirect:show(d.message);
+};
+
+/* LOGIN */
+document.getElementById("worker-login").onsubmit=async e=>{
+e.preventDefault();
+const r=await fetch("/worker/login",{method:"POST",body:new FormData(e.target)});
+const d=await r.json();
+d.success?location.href=d.redirect:show(d.message);
+};
+</script>
+
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Worker Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f5f7fb;
+            padding: 30px;
+        }
+
+        /* ---------- HEADER ---------- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 22px;
+        }
+
+        .logout {
+            text-decoration: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            background: #eef2ff;
+            color: #1e40af;
+            font-weight: 600;
+        }
+
+        /* ---------- STATUS CARD ---------- */
+        .status-card {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .status-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: {{ 'green' if worker_status == 'available' else 'gray' }};
+        }
+
+        .status-left p {
+            margin: 0;
+            font-size: 15px;
+            color: #374151;
+        }
+
+        .toggle-btn {
+            padding: 8px 18px;
+            border-radius: 20px;
+            border: none;
+            background: #2563eb;
+            color: #ffffff;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        /* ---------- ISSUES ---------- */
+        .issues-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .issues-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .issue-card {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 20px;
+            background: #e0edff;
+            color: #2563eb;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .issue-card h3 {
+            margin: 0 0 8px;
+            font-size: 16px;
+        }
+
+        .issue-card p {
+            margin: 4px 0;
+            font-size: 13px;
+            color: #4b5563;
+        }
+
+        select {
+            margin-top: 10px;
+            width: 100%;
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            font-weight: 500;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <h1>Welcome, {{ worker_name }}</h1>
+    <a class="logout" href="/worker/logout">Logout</a>
+</div>
+
+<!-- STATUS -->
+<div class="status-card">
+    <div class="status-left">
+        <div class="dot"></div>
+        <p>
+            Duty Status:
+            <b id="status-text">{{ worker_status }}</b>
+        </p>
+    </div>
+
+    <button class="toggle-btn" id="toggle-btn">
+        {% if worker_status == 'available' %}
+            Set Unavailable
+        {% else %}
+            Set Available
+        {% endif %}
+    </button>
+</div>
+
+<!-- ISSUES -->
+<div class="issues-title">Assigned Issues</div>
+
+{% if issues %}
+<div class="issues-grid">
+    {% for issue in issues %}
+    <div class="issue-card">
+        <span class="badge">{{ issue.category }}</span>
+        <h3>{{ issue.title }}</h3>
+
+        <p><b>Area:</b> {{ issue.area }}</p>
+        <p><b>Status:</b> {{ issue.status }}</p>
+
+        <select onchange="updateIssueStatus({{ issue.id }}, this.value)">
+            <option {% if issue.status=='Pending' %}selected{% endif %}>Pending</option>
+            <option {% if issue.status=='In Progress' %}selected{% endif %}>In Progress</option>
+            <option {% if issue.status=='Resolved' %}selected{% endif %}>Resolved</option>
+        </select>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>No issues assigned.</p>
+{% endif %}
+
+<script>
+document.getElementById('toggle-btn').onclick = async () => {
+    const current = document.getElementById('status-text').innerText;
+    const newStatus = current === 'available' ? 'unavailable' : 'available';
+
+    const formData = new FormData();
+    formData.append('status', newStatus);
+
+    const res = await fetch('/worker/toggle-status', {
+        method: 'POST',
+        body: formData
+    });
+
+    const data = await res.json();
+    if (data.success) location.reload();
+};
+
+async function updateIssueStatus(issueId, status) {
+    const formData = new FormData();
+    formData.append('issue_id', issueId);
+    formData.append('status', status);
+
+    await fetch('/worker/update-status', {
+        method: 'POST',
+        body: formData
+    });
+}
+</script>
+
+</body>
+</html>

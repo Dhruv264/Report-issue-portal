@@ -3,30 +3,17 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import psycopg2
 from psycopg2.extras import RealDictCursor
 import re
+
 from config import Config
+from db import get_db_connection
+from routes.worker_routes import worker_bp   # ✅ IMPORT ONCE ONLY
+
 
 app = Flask(__name__)
 app.config.from_object(Config)
 
 # REQUIRED for session + flash
 app.secret_key = app.config.get("SECRET_KEY", "dev_secret_key")
-
-
-# --------------------------------------------------
-# DATABASE CONNECTION
-# --------------------------------------------------
-def get_db_connection():
-    try:
-        return psycopg2.connect(
-            host=app.config['DB_HOST'],
-            database=app.config['DB_NAME'],
-            user=app.config['DB_USER'],
-            password=app.config['DB_PASSWORD'],
-            port=app.config['DB_PORT']
-        )
-    except Exception as e:
-        print("Database connection error:", e)
-        return None
 
 
 # --------------------------------------------------
@@ -40,6 +27,7 @@ def init_db():
     try:
         cur = conn.cursor()
 
+        # USERS
         cur.execute("""
             CREATE TABLE IF NOT EXISTS userf (
                 id SERIAL PRIMARY KEY,
@@ -50,6 +38,7 @@ def init_db():
             )
         """)
 
+        # ISSUES
         cur.execute("""
             CREATE TABLE IF NOT EXISTS issues (
                 id SERIAL PRIMARY KEY,
@@ -60,6 +49,19 @@ def init_db():
                 area VARCHAR(100),
                 pincode VARCHAR(10),
                 status VARCHAR(20) DEFAULT 'Pending',
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        """)
+
+        # WORKERS
+        cur.execute("""
+            CREATE TABLE IF NOT EXISTS workers (
+                id SERIAL PRIMARY KEY,
+                name VARCHAR(100) NOT NULL,
+                email VARCHAR(120) UNIQUE NOT NULL,
+                password_hash TEXT NOT NULL,
+                category VARCHAR(50) NOT NULL,
+                status VARCHAR(20) DEFAULT 'available',
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )
         """)
@@ -81,7 +83,7 @@ def is_valid_email(email):
 
 
 # --------------------------------------------------
-# ROUTES
+# ROUTES (USER)
 # --------------------------------------------------
 @app.route('/')
 def home():
@@ -155,7 +157,7 @@ def login():
     return jsonify(success=True, redirect=url_for('dashboard'))
 
 
-# ---------------- DASHBOARD (WITH REAL COUNTS) ----------------
+# ---------------- DASHBOARD ----------------
 @app.route('/dashboard')
 def dashboard():
     if 'user_id' not in session:
@@ -164,7 +166,6 @@ def dashboard():
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
-    # 🔹 Recent issues (for table)
     cur.execute("""
         SELECT title, category, status, created_at
         FROM issues
@@ -174,7 +175,6 @@ def dashboard():
     """, (session['user_id'],))
     issues = cur.fetchall()
 
-    # 🔹 Total count
     cur.execute("""
         SELECT COUNT(*) AS total
         FROM issues
@@ -182,17 +182,14 @@ def dashboard():
     """, (session['user_id'],))
     total_reports = cur.fetchone()['total']
 
-    # 🔹 Status-wise counts
     cur.execute("""
         SELECT status, COUNT(*) AS count
         FROM issues
         WHERE user_id = %s
         GROUP BY status
-    """, (session['user_id'],))
+    """)
 
     status_rows = cur.fetchall()
-
-    # Default values
     resolved = in_progress = pending = 0
 
     for row in status_rows:
@@ -215,6 +212,7 @@ def dashboard():
         in_progress=in_progress,
         pending=pending
     )
+
 
 # ---------------- REPORT ISSUE ----------------
 @app.route('/report-issue', methods=['GET', 'POST'])
@@ -247,7 +245,8 @@ def report_issue():
 
     return render_template('report_issue.html', name=session['username'])
 
-# ---------------- VIEW MY ISSUES ----------------
+
+# ---------------- MY ISSUES ----------------
 @app.route('/my-issues')
 def my_issues():
     if 'user_id' not in session:
@@ -267,13 +266,10 @@ def my_issues():
     cur.close()
     conn.close()
 
-    return render_template(
-        'my_issues.html',
-        issues=issues,
-        name=session['username']
-    )
+    return render_template('my_issues.html', issues=issues, name=session['username'])
 
-# ---------------- DELETE MY ISSUES ----------------
+
+# ---------------- DELETE ISSUES ----------------
 @app.route('/delete-issues', methods=['GET', 'POST'])
 def delete_issues():
     if 'user_id' not in session:
@@ -283,8 +279,7 @@ def delete_issues():
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
     if request.method == 'POST':
-        issue_ids = request.form.getlist('issue_ids')
-        issue_ids = [int(i) for i in issue_ids]
+        issue_ids = [int(i) for i in request.form.getlist('issue_ids')]
 
         if issue_ids:
             cur.execute("""
@@ -316,6 +311,12 @@ def delete_issues():
 def logout():
     session.clear()
     return redirect(url_for('home'))
+
+
+# --------------------------------------------------
+# REGISTER WORKER BLUEPRINT (ONCE)
+# --------------------------------------------------
+app.register_blueprint(worker_bp)
 
 
 # --------------------------------------------------
