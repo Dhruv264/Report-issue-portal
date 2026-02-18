@@ -182,12 +182,13 @@ def dashboard():
     """, (session['user_id'],))
     total_reports = cur.fetchone()['total']
 
+    # ✅ FIXED LINE (ONLY CHANGE)
     cur.execute("""
         SELECT status, COUNT(*) AS count
         FROM issues
         WHERE user_id = %s
         GROUP BY status
-    """)
+    """, (session['user_id'],))
 
     status_rows = cur.fetchall()
     resolved = in_progress = pending = 0
