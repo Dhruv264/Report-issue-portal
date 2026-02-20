@@ -1,159 +1,246 @@
 <!DOCTYPE html>
-<html lang="en">
+<html class="light" lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>User Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard - Amdavad Citizen Portal</title>
 
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
     <!-- Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
 
     <script>
         tailwind.config = {
+            darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        primary: "#2563eb"
+                        primary: "#2563eb",
+                        "accent-saffron": "#FF9933",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
                     }
                 }
             }
         }
     </script>
+
+    <style>
+        body {
+            font-family: "Public Sans", sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
 </head>
 
-<body class="bg-slate-100 font-sans">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
 
-<div class="flex min-h-screen">
+    <div class="flex min-h-screen">
 
-    <!-- SIDEBAR -->
-    <aside class="w-64 bg-white shadow-lg p-6 hidden md:block">
-        <h2 class="text-xl font-extrabold text-primary mb-8">AMC Portal</h2>
-
-        <nav class="space-y-4 text-sm font-semibold">
-            <a href="/dashboard" class="flex items-center gap-3 text-primary">
-                <span class="material-symbols-outlined">dashboard</span> Dashboard
-            </a>
-            <a href="/my-issues" class="flex items-center gap-3 text-slate-600 hover:text-primary">
-                <span class="material-symbols-outlined">list</span> My Reports
-            </a>
-            <a href="/report-issue" class="flex items-center gap-3 text-slate-600 hover:text-primary">
-                <span class="material-symbols-outlined">bug_report</span> Report Issue
-            </a>
-            <a href="/delete-issues" class="flex items-center gap-3 text-red-500 hover:text-red-600">
-                <span class="material-symbols-outlined">delete</span> Delete Issues
-            </a>
-        </nav>
-    </aside>
-
-    <!-- MAIN CONTENT -->
-    <main class="flex-1 p-8">
-
-        <!-- HEADER -->
-        <div class="flex justify-between items-center mb-8">
-            <div>
-                <h1 class="text-3xl font-extrabold text-slate-800">
-                    Welcome back, {{ name }}
-                </h1>
-                <p class="text-slate-500 text-sm">Have a great day 👋</p>
+        <!-- SIDEBAR -->
+        <aside class="w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 p-6 fixed h-screen flex flex-col">
+            <!-- Logo -->
+            <div class="mb-8">
+                <h2 class="text-2xl font-black text-primary">AMC Portal</h2>
             </div>
 
-            <form action="/logout" method="post">
-                <button class="bg-slate-800 text-white px-5 py-2 rounded-lg font-semibold hover:bg-black">
-                    Logout
-                </button>
-            </form>
-        </div>
-
-        <!-- STATS -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-10">
-
-            <!-- TOTAL -->
-            <div class="bg-white p-6 rounded-xl shadow">
-                <p class="text-sm text-slate-500 font-semibold">TOTAL REPORTS</p>
-                <h3 class="text-3xl font-black text-slate-800">
-                    {{ total_reports }}
-                </h3>
-            </div>
-
-            <!-- RESOLVED -->
-            <div class="bg-white p-6 rounded-xl shadow border-l-4 border-green-500">
-                <p class="text-sm text-slate-500 font-semibold">RESOLVED</p>
-                <h3 class="text-3xl font-black text-green-600">
-                    {{ resolved }}
-                </h3>
-            </div>
-
-            <!-- IN PROGRESS -->
-            <div class="bg-white p-6 rounded-xl shadow border-l-4 border-orange-500">
-                <p class="text-sm text-slate-500 font-semibold">IN PROGRESS</p>
-                <h3 class="text-3xl font-black text-orange-500">
-                    {{ in_progress }}
-                </h3>
-            </div>
-
-            <!-- PENDING -->
-            <div class="bg-white p-6 rounded-xl shadow border-l-4 border-red-500">
-                <p class="text-sm text-slate-500 font-semibold">PENDING</p>
-                <h3 class="text-3xl font-black text-red-500">
-                    {{ pending }}
-                </h3>
-            </div>
-
-        </div>
-
-        <!-- RECENT ISSUES -->
-        <div class="bg-white rounded-xl shadow p-6">
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-lg font-bold text-slate-800">My Recent Issues</h2>
-                <a href="/my-issues" class="text-primary font-semibold text-sm hover:underline">
-                    View All
+            <!-- Navigation -->
+            <nav class="space-y-1 flex-1">
+                <a href="/user-home" class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary hover:bg-primary/5 rounded-lg transition-all">
+                    <span class="material-symbols-outlined text-xl">home</span>
+                    <span class="font-semibold">Home</span>
                 </a>
+                <a href="/dashboard" class="flex items-center gap-3 px-4 py-3 text-primary bg-primary/10 rounded-lg font-semibold transition-all">
+                    <span class="material-symbols-outlined text-xl">dashboard</span>
+                    <span>Dashboard</span>
+                </a>
+                <a href="/my-issues" class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary hover:bg-primary/5 rounded-lg transition-all">
+                    <span class="material-symbols-outlined text-xl">list</span>
+                    <span class="font-semibold">My Reports</span>
+                </a>
+                <a href="/report-issue" class="flex items-center gap-3 px-4 py-3 text-slate-600 dark:text-slate-400 hover:text-primary dark:hover:text-primary hover:bg-primary/5 rounded-lg transition-all">
+                    <span class="material-symbols-outlined text-xl">bug_report</span>
+                    <span class="font-semibold">Report Issue</span>
+                </a>
+                <a href="/delete-issues" class="flex items-center gap-3 px-4 py-3 text-red-600 dark:text-red-400 hover:bg-red-500/10 rounded-lg transition-all">
+                    <span class="material-symbols-outlined text-xl">delete</span>
+                    <span class="font-semibold">Delete Issues</span>
+                </a>
+            </nav>
+
+            <!-- Theme Toggle -->
+            <button id="theme-toggle" class="flex items-center justify-center gap-2 w-full px-4 py-3 text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition-all border border-slate-200 dark:border-slate-700">
+                <span class="material-symbols-outlined text-lg">light_mode</span>
+                <span class="font-semibold text-sm">SWITCH THEME</span>
+            </button>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="flex-1 ml-64 p-8">
+
+            <!-- HEADER -->
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-4xl font-black text-slate-900 dark:text-white mb-2">
+                        Welcome back, {{ name }}
+                    </h1>
+                    <p class="text-slate-600 dark:text-slate-400">Have a great day 👋</p>
+                </div>
+
+                <form action="/logout" method="post">
+                    <button class="bg-slate-800 hover:bg-slate-900 dark:bg-slate-700 dark:hover:bg-slate-600 text-white px-6 py-2 rounded-lg font-semibold transition-all">
+                        Logout
+                    </button>
+                </form>
             </div>
 
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm">
-                    <thead>
-                        <tr class="text-slate-500 border-b">
-                            <th class="py-3 text-left">Title</th>
-                            <th class="text-left">Category</th>
-                            <th class="text-left">Status</th>
-                            <th class="text-left">Date</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y">
-                        {% for issue in issues[:5] %}
-                        <tr>
-                            <td class="py-3 font-semibold">{{ issue.title }}</td>
-                            <td>{{ issue.category }}</td>
-                            <td>
-                                <span class="px-3 py-1 rounded-full text-xs font-bold
-                                {% if issue.status == 'Resolved' %}
-                                    bg-green-100 text-green-600
-                                {% elif issue.status == 'Pending' %}
-                                    bg-red-100 text-red-600
-                                {% else %}
-                                    bg-orange-100 text-orange-600
-                                {% endif %}
-                                ">
-                                {{ issue.status }}
-                                </span>
-                            </td>
-                            <td>{{ issue.created_at.strftime('%d %b %Y') }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+            <!-- STATS CARDS -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
 
-                {% if not issues %}
-                <p class="text-center text-slate-500 mt-6">No issues reported yet.</p>
-                {% endif %}
+                <!-- Total Issues -->
+                <div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <p class="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Total Issues</p>
+                        </div>
+                        <div class="size-12 bg-blue-500/10 rounded-lg flex items-center justify-center">
+                            <span class="material-symbols-outlined text-blue-600 text-2xl">assignment</span>
+                        </div>
+                    </div>
+                    <h3 class="text-4xl font-black text-slate-900 dark:text-white">{{ issues|length }}</h3>
+                </div>
+
+                <!-- Pending -->
+                <div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <p class="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Pending</p>
+                        </div>
+                        <div class="size-12 bg-orange-500/10 rounded-lg flex items-center justify-center">
+                            <span class="material-symbols-outlined text-orange-600 text-2xl">schedule</span>
+                        </div>
+                    </div>
+                    <h3 class="text-4xl font-black text-slate-900 dark:text-white">
+                        {% set pending_count = issues|selectattr('status', 'equalto', 'Pending')|list|length %}
+                        {{ pending_count }}
+                    </h3>
+                </div>
+
+                <!-- Resolved -->
+                <div class="bg-white dark:bg-slate-900 rounded-xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm">
+                    <div class="flex items-start justify-between mb-4">
+                        <div>
+                            <p class="text-slate-600 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Resolved</p>
+                        </div>
+                        <div class="size-12 bg-green-500/10 rounded-lg flex items-center justify-center">
+                            <span class="material-symbols-outlined text-green-600 text-2xl">check_circle</span>
+                        </div>
+                    </div>
+                    <h3 class="text-4xl font-black text-slate-900 dark:text-white">
+                        {% set resolved_count = issues|selectattr('status', 'equalto', 'Resolved')|list|length %}
+                        {{ resolved_count }}
+                    </h3>
+                </div>
+
             </div>
-        </div>
 
-    </main>
-</div>
+            <!-- RECENT ISSUES TABLE -->
+            <div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+                <div class="px-6 py-4 border-b border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white">My Recent Issues</h2>
+                    <a href="/my-issues" class="text-primary hover:text-primary/80 font-semibold text-sm transition-colors">
+                        View All
+                    </a>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="bg-slate-50 dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700">
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">Title</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">Category</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">Status</th>
+                                <th class="px-6 py-4 text-left text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-200 dark:divide-slate-800">
+                            {% for issue in issues[:5] %}
+                            <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+                                <td class="px-6 py-4 font-semibold text-slate-900 dark:text-white">{{ issue.title }}</td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-400">{{ issue.category }}</td>
+                                <td class="px-6 py-4">
+                                    <span class="px-3 py-1 rounded-full text-xs font-bold inline-flex items-center gap-1
+                                    {% if issue.status == 'Resolved' %}
+                                        bg-green-500/10 text-green-700 dark:text-green-400
+                                    {% elif issue.status == 'Pending' %}
+                                        bg-red-500/10 text-red-700 dark:text-red-400
+                                    {% else %}
+                                        bg-orange-500/10 text-orange-700 dark:text-orange-400
+                                    {% endif %}
+                                    ">
+                                        {% if issue.status == 'Resolved' %}
+                                            <span class="material-symbols-outlined text-sm">check_circle</span>
+                                        {% elif issue.status == 'Pending' %}
+                                            <span class="material-symbols-outlined text-sm">schedule</span>
+                                        {% else %}
+                                            <span class="material-symbols-outlined text-sm">autorenew</span>
+                                        {% endif %}
+                                        {{ issue.status }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-slate-600 dark:text-slate-400">
+                                    {% if issue.created_at %}
+                                        {{ issue.created_at.strftime('%d %b %Y') if issue.created_at.strftime else issue.created_at }}
+                                    {% else %}
+                                        No date
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+
+                    {% if not issues %}
+                    <div class="text-center py-10">
+                        <span class="material-symbols-outlined text-5xl text-slate-300 dark:text-slate-700 block mb-3">folder_open</span>
+                        <p class="text-slate-500 dark:text-slate-400 text-lg font-semibold">No issues reported yet.</p>
+                        <a href="/report-issue" class="inline-block mt-4 text-primary hover:text-primary/80 font-semibold transition-colors">
+                            Report your first issue
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        // Theme toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+
+        themeToggle.addEventListener('click', () => {
+            htmlElement.classList.toggle('dark');
+            localStorage.setItem('theme', htmlElement.classList.contains('dark') ? 'dark' : 'light');
+        });
+
+        // Load saved theme
+        if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            htmlElement.classList.add('dark');
+        }
+    </script>
 
 </body>
+
 </html>

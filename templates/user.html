@@ -1,294 +1,411 @@
 <!DOCTYPE html>
-<html class="light" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Home Page - Amdavad Citizen Portal (Guest View)</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              colors: {
-                "primary": "#0d7ff2",
-                "accent-saffron": "#FF9933",
-                "background-light": "#f5f7f8",
-                "background-dark": "#101922",
-              },
-              fontFamily: {
-                "display": ["Public Sans", "sans-serif"]
-              },
-              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
-            },
-          },
-        }
-    </script>
-<style>
-        body {
-            font-family: "Public Sans", sans-serif;
-        }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-    </style>
-</head>
-<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-200">
-<div class="relative flex min-h-screen flex-col overflow-x-hidden">
-<header class="sticky top-0 z-50 w-full bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-solid border-slate-200 dark:border-slate-800">
-<div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10 py-3 flex items-center justify-between whitespace-nowrap">
-<div class="flex items-center gap-3">
-<div class="size-10 bg-primary flex items-center justify-center rounded-lg text-white">
-<span class="material-symbols-outlined text-2xl">location_city</span>
-</div>
-<div>
-<h2 class="text-primary text-xl font-black leading-tight tracking-tight">AMDAVAD</h2>
-<p class="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Citizen Portal</p>
-</div>
-</div>
-<div class="flex flex-1 justify-end gap-8 items-center">
-<nav class="hidden md:flex items-center gap-8">
-<a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors" href="#">Track Issue</a>
-<a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors" href="#">Services</a>
-<a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors" href="#">About</a>
-<a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors" href="#">News</a>
-</nav>
-<div class="flex items-center gap-2">
-<button class="flex size-10 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:text-primary hover:border-primary transition-all">
-<span class="material-symbols-outlined">account_circle</span>
-</button>
-</div>
-</div>
-</div>
-</header>
-<main class="flex-1">
-<div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10 py-8">
-<div class="@container">
-<div class="relative overflow-hidden rounded-xl bg-slate-900">
-<div class="flex min-h-[520px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 items-start justify-center px-8 pb-10 @[480px]:px-16" data-alt="Aerial view of Sabarmati Riverfront Ahmedabad at sunset" style='background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 60%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCRACBbcGY3LVDkCgciSwwMAv1HZBELXE64ojASbWO5MXffDeBP_DH_oz1d4Jbt9yxXWbs3J1qldAkSkKBoXA7z3usD-v5apZV2NAXKXgdcmO6QdK3M9xSRDtlHvILh1SsFABYsz1TbTFxD9TYewsBdr3BRxOzXrR2DvFsBB5aa0oADuuorHmgAgXKyasU5nskMIvNLZWSL2AwL_PA6WQChA9YoOxJQrKSL--MyhXVXwrg-JKzWeKMTyarFXCwPT71BZK0it1WzbpY");'>
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-saffron/20 border border-accent-saffron/30 text-accent-saffron text-xs font-bold uppercase tracking-wider">
-<span class="size-2 rounded-full bg-accent-saffron animate-pulse"></span>
-                                Official Municipal Portal
-                            </div>
-<div class="flex flex-col gap-4 max-w-2xl text-left">
-<h1 class="text-white text-4xl font-black leading-tight tracking-tight @[480px]:text-6xl">
-                                    Building a Better <span class="text-primary">Amdavad</span>, Together.
-                                </h1>
-<h2 class="text-slate-300 text-base font-normal leading-relaxed @[480px]:text-xl">
-                                    Join thousands of citizens making Ahmedabad cleaner, safer, and smarter. Report local issues and track resolutions in real-time.
-                                </h2>
-</div>
-<div class="flex flex-wrap gap-4">
-<button class="flex min-w-[200px] cursor-pointer items-center justify-center gap-2 rounded-lg h-14 px-8 bg-primary text-white text-lg font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-transform">
-<span class="material-symbols-outlined">report</span>
-                                    Report an Issue
-                                </button>
-<button class="flex min-w-[200px] cursor-pointer items-center justify-center gap-2 rounded-lg h-14 px-8 bg-white/10 backdrop-blur-md text-white text-lg font-bold border border-white/20 hover:bg-white/20 transition-all">
-<span class="material-symbols-outlined">map</span>
-                                    View City Map
-                                </button>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10 py-8">
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="flex flex-col gap-3 rounded-xl p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
-<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-<span class="material-symbols-outlined text-6xl text-primary">task_alt</span>
-</div>
-<p class="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-widest">Issues Resolved</p>
-<div class="flex items-baseline gap-2">
-<p class="text-slate-900 dark:text-white text-4xl font-black leading-tight">12,450+</p>
-<span class="text-green-500 text-sm font-bold flex items-center bg-green-500/10 px-2 py-0.5 rounded">+15%</span>
-</div>
-<p class="text-slate-400 text-xs font-medium">Across all zones this month</p>
-</div>
-<div class="flex flex-col gap-3 rounded-xl p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
-<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-<span class="material-symbols-outlined text-6xl text-primary">pending_actions</span>
-</div>
-<p class="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-widest">Active Reports</p>
-<div class="flex items-baseline gap-2">
-<p class="text-slate-900 dark:text-white text-4xl font-black leading-tight">1,205</p>
-<span class="text-green-500 text-sm font-bold flex items-center bg-green-500/10 px-2 py-0.5 rounded">+5%</span>
-</div>
-<p class="text-slate-400 text-xs font-medium">Currently under processing</p>
-</div>
-<div class="flex flex-col gap-3 rounded-xl p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
-<div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-<span class="material-symbols-outlined text-6xl text-primary">schedule</span>
-</div>
-<p class="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-widest">Response Time</p>
-<div class="flex items-baseline gap-2">
-<p class="text-slate-900 dark:text-white text-4xl font-black leading-tight">24 Hours</p>
-<span class="text-orange-500 text-sm font-bold flex items-center bg-orange-500/10 px-2 py-0.5 rounded">-2%</span>
-</div>
-<p class="text-slate-400 text-xs font-medium">Avg. time to first response</p>
-</div>
-</div>
-</div>
-<div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10 py-12">
-<div class="flex items-end justify-between mb-8">
-<div class="flex flex-col gap-2">
-<div class="h-1 w-12 bg-primary rounded-full"></div>
-<h2 class="text-slate-900 dark:text-white text-3xl font-black tracking-tight">Popular Categories</h2>
-<p class="text-slate-500 dark:text-slate-400">Select a category to report a new issue or view updates.</p>
-</div>
-<button class="text-primary font-bold text-sm flex items-center gap-1 hover:underline">
-                        View All Services
-                        <span class="material-symbols-outlined text-sm">arrow_forward</span>
-</button>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<div class="group flex flex-col gap-0 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all">
-<div class="h-48 overflow-hidden relative">
-<div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent z-10"></div>
-<div class="w-full h-full bg-center bg-no-repeat bg-cover group-hover:scale-110 transition-transform duration-500" data-alt="Modern asphalt city road with clean lane markings" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDdROaBj4t0P7WmRyRyI-GyiRzgq8TdJ7C2WP7hQ6DMje79lUj3QSCHMfSFlb9bjIQf-OXkwSaZytqvY7zNLqtu0d5uxL5x0JR40jlv_hbvogdaq6owLDJcZqdMs4AS1eTck0hb85wZCAxnykRefldH1RXoucCnYwI14xCrbzXM_Ed4oBgMhXgl94k4odIYCfyKDajOXxNGpbFykAysWgwv07n0m8dOU6VQl1Xs3Mrk6cRTs7qJUPBA011L5TPMkK6Bk9ZIF2pmNI0");'></div>
-<div class="absolute bottom-4 left-4 z-20 flex items-center gap-2">
-<div class="size-10 rounded-lg bg-primary flex items-center justify-center text-white shadow-lg">
-<span class="material-symbols-outlined">engineering</span>
-</div>
-<span class="text-white font-bold">Public Works</span>
-</div>
-</div>
-<div class="p-6">
-<h3 class="text-slate-900 dark:text-white text-xl font-bold mb-2">Roads &amp; Potholes</h3>
-<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">Report damaged roads, open manholes, or faulty streetlights in your locality.</p>
-<button class="w-full py-3 rounded-lg border border-primary text-primary font-bold text-sm hover:bg-primary hover:text-white transition-colors">
-                                Report Issue
-                            </button>
-</div>
-</div>
-<div class="group flex flex-col gap-0 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all">
-<div class="h-48 overflow-hidden relative">
-<div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent z-10"></div>
-<div class="w-full h-full bg-center bg-no-repeat bg-cover group-hover:scale-110 transition-transform duration-500" data-alt="Clean city waste bin in a well-maintained park" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA_NBkDFs4Hvm05Gj1NYq6SyUmMZZyVZ4I6qHzp1VlX1EV_LL9wHTXwiwcb2Fj42_NFYoO-PQfGmF0SirK6PZrXlojrtKmNS7mEM2A5cd1RzYMcakf-6FBO4jigR09zEnGnTleLrngiXWU14CBsWkh6Bc4PWrt4yMbWlry4ntcJEA5R_FNQxdO4A1lE23_z1zE4AFQtjl76NcUla3ovlcE6dVu7nIoEe5t8l-afhoUDyxTAw94icRmc7-1Mv6QNk6WLi7LhpEshiOA");'></div>
-<div class="absolute bottom-4 left-4 z-20 flex items-center gap-2">
-<div class="size-10 rounded-lg bg-green-500 flex items-center justify-center text-white shadow-lg">
-<span class="material-symbols-outlined">delete</span>
-</div>
-<span class="text-white font-bold">Sanitation</span>
-</div>
-</div>
-<div class="p-6">
-<h3 class="text-slate-900 dark:text-white text-xl font-bold mb-2">Sanitation &amp; Waste</h3>
-<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">Request garbage collection, report illegal dumping or overflowing community bins.</p>
-<button class="w-full py-3 rounded-lg border border-green-500 text-green-500 font-bold text-sm hover:bg-green-500 hover:text-white transition-colors">
-                                Report Issue
-                            </button>
-</div>
-</div>
-<div class="group flex flex-col gap-0 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all">
-<div class="h-48 overflow-hidden relative">
-<div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent z-10"></div>
-<div class="w-full h-full bg-center bg-no-repeat bg-cover group-hover:scale-110 transition-transform duration-500" data-alt="Clear fresh water flowing from a modern pipe" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAGPD_J7jmLVaH8XkoEnqDi8XwxnqJdVq42UeAN69eqWJyVGI8xZyssNOYR3dtw86KOJM1xB7an-UdOQFUyM1rVwsmMc9K0dZ2K6rADZ13Hc4uLeI5nVgBK_46gLYUOuV8Q1UIPloGy4l3lrQXtdrC2DcsibGSzRQMOvGg0il2y0ZsVpl3379bwGBdJu9t2eHbCeS5mGb5NYoSRX69ZV_Rb5AnREvO4GqlFingJUhFDUSQkcRa4MH-We_QEaGm0_j1mOTUyfAoHmpY");'></div>
-<div class="absolute bottom-4 left-4 z-20 flex items-center gap-2">
-<div class="size-10 rounded-lg bg-cyan-500 flex items-center justify-center text-white shadow-lg">
-<span class="material-symbols-outlined">water_drop</span>
-</div>
-<span class="text-white font-bold">Utilities</span>
-</div>
-</div>
-<div class="p-6">
-<h3 class="text-slate-900 dark:text-white text-xl font-bold mb-2">Water Supply</h3>
-<p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">Manage reports for water leakages, low pressure, or contaminated Supply lines.</p>
-<button class="w-full py-3 rounded-lg border border-cyan-500 text-cyan-500 font-bold text-sm hover:bg-cyan-500 hover:text-white transition-colors">
-                                Report Issue
-                            </button>
-</div>
-</div>
-</div>
-</div>
-<div class="bg-slate-100 dark:bg-slate-950 py-20 mt-12 border-y border-slate-200 dark:border-slate-800">
-<div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
-<h2 class="text-slate-900 dark:text-white text-3xl font-black mb-16">How it works</h2>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
-<div class="hidden md:block absolute top-12 left-1/4 right-1/4 h-0.5 bg-slate-200 dark:bg-slate-800 -z-0"></div>
-<div class="flex flex-col items-center gap-4 relative z-10">
-<div class="size-20 rounded-full bg-primary flex items-center justify-center text-white text-3xl font-black shadow-xl shadow-primary/30">1</div>
-<h4 class="text-slate-900 dark:text-white text-xl font-bold">Snap &amp; Report</h4>
-<p class="text-slate-500 dark:text-slate-400 text-sm">Upload a photo of the issue and add location details.</p>
-</div>
-<div class="flex flex-col items-center gap-4 relative z-10">
-<div class="size-20 rounded-full bg-primary flex items-center justify-center text-white text-3xl font-black shadow-xl shadow-primary/30">2</div>
-<h4 class="text-slate-900 dark:text-white text-xl font-bold">AMC Assigns</h4>
-<p class="text-slate-500 dark:text-slate-400 text-sm">The complaint is routed to the respective ward officer automatically.</p>
-</div>
-<div class="flex flex-col items-center gap-4 relative z-10">
-<div class="size-20 rounded-full bg-primary flex items-center justify-center text-white text-3xl font-black shadow-xl shadow-primary/30">3</div>
-<h4 class="text-slate-900 dark:text-white text-xl font-bold">Real-time Track</h4>
-<p class="text-slate-500 dark:text-slate-400 text-sm">Get notified via SMS and App as the work progresses to completion.</p>
-</div>
-</div>
-</div>
-</div>
-</main>
-<footer class="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 pt-16 pb-8">
-<div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-<div class="col-span-1 md:col-span-1">
-<div class="flex items-center gap-3 mb-6">
-<div class="size-8 bg-primary flex items-center justify-center rounded text-white">
-<span class="material-symbols-outlined text-lg">location_city</span>
-</div>
-<h2 class="text-slate-900 dark:text-white text-lg font-black tracking-tight">AMDAVAD PORTAL</h2>
-</div>
-<p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-                            The official citizen engagement platform of Ahmedabad Municipal Corporation. Empowering citizens for a smarter heritage city.
-                        </p>
-</div>
-<div>
-<h4 class="text-slate-900 dark:text-white font-bold mb-6">Quick Links</h4>
-<ul class="flex flex-col gap-3 text-sm text-slate-500 dark:text-slate-400">
-<li><a class="hover:text-primary transition-colors" href="#">Emergency Contacts</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">AMC Official Site</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Property Tax</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Birth &amp; Death Certificates</a></li>
-</ul>
-</div>
-<div>
-<h4 class="text-slate-900 dark:text-white font-bold mb-6">Support</h4>
-<ul class="flex flex-col gap-3 text-sm text-slate-500 dark:text-slate-400">
-<li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">How to Report</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
-<li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
-</ul>
-</div>
-<div>
-<h4 class="text-slate-900 dark:text-white font-bold mb-6">Connect With Us</h4>
-<div class="flex gap-4">
-<a class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined">share</span>
-</a>
-<a class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined">mail</span>
-</a>
-<a class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all" href="#">
-<span class="material-symbols-outlined">call</span>
-</a>
-</div>
-<p class="mt-6 text-xs text-slate-400">Helpline: 155303 (Toll Free)</p>
-</div>
-</div>
-<div class="border-t border-slate-100 dark:border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-<p class="text-xs text-slate-400">© 2024 Ahmedabad Municipal Corporation. All Rights Reserved.</p>
-<div class="flex gap-6">
-<span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-1">
-<span class="size-1.5 rounded-full bg-accent-saffron"></span>
-                            Smart City Mission
-                        </span>
-<span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-1">
-<span class="size-1.5 rounded-full bg-green-600"></span>
-                            Digital India
-                        </span>
-</div>
-</div>
-</div>
-</footer>
-</div>
+<html class="light" lang="en">
 
-</body></html>
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Home Page - Amdavad Citizen Portal (Guest View)</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap"
+    rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet" />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#0d7ff2",
+            "accent-saffron": "#FF9933",
+            "background-light": "#f5f7f8",
+            "background-dark": "#101922",
+          },
+          fontFamily: {
+            "display": ["Public Sans", "sans-serif"]
+          },
+          borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+        },
+      },
+    }
+  </script>
+  <style>
+    body {
+      font-family: "Public Sans", sans-serif;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+</head>
+
+<body
+  class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-200">
+  <div class="relative flex min-h-screen flex-col overflow-x-hidden">
+    <header
+      class="sticky top-0 z-50 w-full bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-solid border-slate-200 dark:border-slate-800">
+      <div
+        class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10 py-3 flex items-center justify-between whitespace-nowrap">
+        <div class="flex items-center gap-3">
+          <a href="/user-home" class="flex items-center gap-3 no-underline">
+            <div class="size-10 bg-primary flex items-center justify-center rounded-lg text-white">
+              <span class="material-symbols-outlined text-2xl">location_city</span>
+            </div>
+            <div>
+              <h2 class="text-primary text-xl font-black leading-tight tracking-tight">AMDAVAD</h2>
+              <p class="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">Citizen
+                Portal</p>
+            </div>
+          </a>
+        </div>
+        <div class="flex flex-1 justify-end gap-8 items-center">
+          <!-- Mobile menu button -->
+          <button id="mobile-menu-btn"
+            class="md:hidden flex items-center justify-center size-10 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all border-none shadow-none p-0">
+            <span class="material-symbols-outlined text-2xl">menu</span>
+          </button>
+          <nav class="hidden md:flex items-center gap-8">
+            <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors"
+              href="/worker_auth">Worker</a>
+            <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors"
+              href="/admin_login">Admin</a>
+            <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors"
+              href="/trackissues">Track Issue</a>
+            <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors"
+              href="/services">Services</a>
+            <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors"
+              href="/about">About</a>
+            <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors"
+              href="/news">News</a>
+          </nav>
+          <div class="flex items-center gap-2">
+            <a href="/dashboard"
+              class="flex size-10 items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:text-primary hover:border-primary transition-all"
+              title="My Dashboard">
+              <span class="material-symbols-outlined">account_circle</span>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile menu dropdown -->
+      <div id="mobile-menu"
+        class="hidden md:hidden bg-white/95 dark:bg-background-dark/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-4 pb-4">
+        <nav class="flex flex-col gap-2 pt-3">
+          <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+            href="/worker_auth">Worker</a>
+          <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+            href="/admin_login">Admin</a>
+          <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+            href="/trackissues">Track Issue</a>
+          <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+            href="/services">Services</a>
+          <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+            href="/about">About</a>
+          <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+            href="/news">News</a>
+          <div class="flex gap-3 pt-3 border-t border-slate-200 dark:border-slate-800 mt-2">
+            <a href="/dashboard"
+              class="flex-1 flex cursor-pointer items-center justify-center gap-2 rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold shadow-md hover:bg-primary/90 transition-all no-underline">
+              <span class="material-symbols-outlined text-lg">account_circle</span> My Dashboard
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+    <main class="flex-1">
+      <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10 py-8">
+        <div class="@container">
+          <div class="relative overflow-hidden rounded-xl bg-slate-900">
+            <div
+              class="flex min-h-[520px] flex-col gap-6 bg-cover bg-center bg-no-repeat @[480px]:gap-8 items-start justify-center px-8 pb-10 @[480px]:px-16"
+              data-alt="Aerial view of Sabarmati Riverfront Ahmedabad at sunset"
+              style='background-image: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.2) 60%), url("https://lh3.googleusercontent.com/aida-public/AB6AXuCRACBbcGY3LVDkCgciSwwMAv1HZBELXE64ojASbWO5MXffDeBP_DH_oz1d4Jbt9yxXWbs3J1qldAkSkKBoXA7z3usD-v5apZV2NAXKXgdcmO6QdK3M9xSRDtlHvILh1SsFABYsz1TbTFxD9TYewsBdr3BRxOzXrR2DvFsBB5aa0oADuuorHmgAgXKyasU5nskMIvNLZWSL2AwL_PA6WQChA9YoOxJQrKSL--MyhXVXwrg-JKzWeKMTyarFXCwPT71BZK0it1WzbpY");'>
+              <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-saffron/20 border border-accent-saffron/30 text-accent-saffron text-xs font-bold uppercase tracking-wider">
+                <span class="size-2 rounded-full bg-accent-saffron animate-pulse"></span>
+                Official Municipal Portal
+              </div>
+              <div class="flex flex-col gap-4 max-w-2xl text-left">
+                <h1 class="text-white text-4xl font-black leading-tight tracking-tight @[480px]:text-6xl">
+                  Building a Better <span class="text-primary">Amdavad</span>, Together.
+                </h1>
+                <h2 class="text-slate-300 text-base font-normal leading-relaxed @[480px]:text-xl">
+                  Join thousands of citizens making Ahmedabad cleaner, safer, and smarter. Report local issues and track
+                  resolutions in real-time.
+                </h2>
+              </div>
+              <div class="flex flex-wrap gap-4">
+                <a href="/report-issue"
+                  class="flex min-w-[200px] cursor-pointer items-center justify-center gap-2 rounded-lg h-14 px-8 bg-primary text-white text-lg font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-transform no-underline">
+                  <span class="material-symbols-outlined">report</span>
+                  Report an Issue
+                </a>
+                <a href="https://www.google.com/maps/place/Ahmedabad,+Gujarat/@23.0201581,72.414931,11z/data=!3m1!4b1!4m6!3m5!1s0x395e848aba5bd449:0x4fcedd11614f6516!8m2!3d23.022505!4d72.5713621!16zL20vMDFkODhj?entry=ttu&g_ep=EgoyMDI2MDIxNi4wIKXMDSoASAFQAw%3D%3D"
+                  class="flex min-w-[200px] cursor-pointer items-center justify-center gap-2 rounded-lg h-14 px-8 bg-white/10 backdrop-blur-md text-white text-lg font-bold border border-white/20 hover:bg-white/20 transition-all">
+                  <span class="material-symbols-outlined">map</span>
+                  View City Map
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10 py-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div
+            class="flex flex-col gap-3 rounded-xl p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
+            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <span class="material-symbols-outlined text-6xl text-primary">task_alt</span>
+            </div>
+            <p class="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-widest">Issues Resolved
+            </p>
+            <div class="flex items-baseline gap-2">
+              <p class="text-slate-900 dark:text-white text-4xl font-black leading-tight">{{ resolved_issues }}</p>
+              <span
+                class="text-green-500 text-sm font-bold flex items-center bg-green-500/10 px-2 py-0.5 rounded">All Time</span>
+            </div>
+            <p class="text-slate-400 text-xs font-medium">Total resolved across all zones</p>
+          </div>
+          <div
+            class="flex flex-col gap-3 rounded-xl p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
+            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <span class="material-symbols-outlined text-6xl text-primary">pending_actions</span>
+            </div>
+            <p class="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-widest">Active Reports</p>
+            <div class="flex items-baseline gap-2">
+              <p class="text-slate-900 dark:text-white text-4xl font-black leading-tight">{{ active_issues }}</p>
+              <span
+                class="text-green-500 text-sm font-bold flex items-center bg-green-500/10 px-2 py-0.5 rounded">In Progress</span>
+            </div>
+            <p class="text-slate-400 text-xs font-medium">Currently under processing</p>
+          </div>
+          <div
+            class="flex flex-col gap-3 rounded-xl p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
+            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+              <span class="material-symbols-outlined text-6xl text-primary">summarize</span>
+            </div>
+            <p class="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-widest">Total Reports</p>
+            <div class="flex items-baseline gap-2">
+              <p class="text-slate-900 dark:text-white text-4xl font-black leading-tight">{{ total_issues }}</p>
+              <span class="text-primary text-sm font-bold flex items-center bg-primary/10 px-2 py-0.5 rounded">All
+                Time</span>
+            </div>
+            <p class="text-slate-400 text-xs font-medium">Total issues reported by citizens</p>
+          </div>
+        </div>
+      </div>
+      <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10 py-12">
+        <div class="flex items-end justify-between mb-8">
+          <div class="flex flex-col gap-2">
+            <div class="h-1 w-12 bg-primary rounded-full"></div>
+            <h2 class="text-slate-900 dark:text-white text-3xl font-black tracking-tight">Popular Categories</h2>
+            <p class="text-slate-500 dark:text-slate-400">Select a category to report a new issue or view updates.</p>
+          </div>
+          <button class="text-primary font-bold text-sm flex items-center gap-1 hover:underline">
+            View All Services
+            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+          </button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div
+            class="group flex flex-col gap-0 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all">
+            <div class="h-48 overflow-hidden relative">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent z-10"></div>
+              <div
+                class="w-full h-full bg-center bg-no-repeat bg-cover group-hover:scale-110 transition-transform duration-500"
+                data-alt="Modern asphalt city road with clean lane markings"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDdROaBj4t0P7WmRyRyI-GyiRzgq8TdJ7C2WP7hQ6DMje79lUj3QSCHMfSFlb9bjIQf-OXkwSaZytqvY7zNLqtu0d5uxL5x0JR40jlv_hbvogdaq6owLDJcZqdMs4AS1eTck0hb85wZCAxnykRefldH1RXoucCnYwI14xCrbzXM_Ed4oBgMhXgl94k4odIYCfyKDajOXxNGpbFykAysWgwv07n0m8dOU6VQl1Xs3Mrk6cRTs7qJUPBA011L5TPMkK6Bk9ZIF2pmNI0");'>
+              </div>
+              <div class="absolute bottom-4 left-4 z-20 flex items-center gap-2">
+                <div class="size-10 rounded-lg bg-primary flex items-center justify-center text-white shadow-lg">
+                  <span class="material-symbols-outlined">engineering</span>
+                </div>
+                <span class="text-white font-bold">Public Works</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-slate-900 dark:text-white text-xl font-bold mb-2">Roads &amp; Potholes</h3>
+              <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">Report damaged roads, open
+                manholes, or faulty streetlights in your locality.</p>
+              <a href="/report-issue"
+                class="w-full py-3 rounded-lg border border-primary text-primary font-bold text-sm hover:bg-primary hover:text-white transition-colors block text-center no-underline">
+                Report Issue
+              </a>
+            </div>
+          </div>
+          <div
+            class="group flex flex-col gap-0 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all">
+            <div class="h-48 overflow-hidden relative">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent z-10"></div>
+              <div
+                class="w-full h-full bg-center bg-no-repeat bg-cover group-hover:scale-110 transition-transform duration-500"
+                data-alt="Clean city waste bin in a well-maintained park"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuA_NBkDFs4Hvm05Gj1NYq6SyUmMZZyVZ4I6qHzp1VlX1EV_LL9wHTXwiwcb2Fj42_NFYoO-PQfGmF0SirK6PZrXlojrtKmNS7mEM2A5cd1RzYMcakf-6FBO4jigR09zEnGnTleLrngiXWU14CBsWkh6Bc4PWrt4yMbWlry4ntcJEA5R_FNQxdO4A1lE23_z1zE4AFQtjl76NcUla3ovlcE6dVu7nIoEe5t8l-afhoUDyxTAw94icRmc7-1Mv6QNk6WLi7LhpEshiOA");'>
+              </div>
+              <div class="absolute bottom-4 left-4 z-20 flex items-center gap-2">
+                <div class="size-10 rounded-lg bg-green-500 flex items-center justify-center text-white shadow-lg">
+                  <span class="material-symbols-outlined">delete</span>
+                </div>
+                <span class="text-white font-bold">Sanitation</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-slate-900 dark:text-white text-xl font-bold mb-2">Sanitation &amp; Waste</h3>
+              <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">Request garbage collection,
+                report illegal dumping or overflowing community bins.</p>
+              <a href="/report-issue"
+                class="w-full py-3 rounded-lg border border-green-500 text-green-500 font-bold text-sm hover:bg-green-500 hover:text-white transition-colors block text-center no-underline">
+                Report Issue
+              </a>
+            </div>
+          </div>
+          <div
+            class="group flex flex-col gap-0 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all">
+            <div class="h-48 overflow-hidden relative">
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent z-10"></div>
+              <div
+                class="w-full h-full bg-center bg-no-repeat bg-cover group-hover:scale-110 transition-transform duration-500"
+                data-alt="Clear fresh water flowing from a modern pipe"
+                style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAGPD_J7jmLVaH8XkoEnqDi8XwxnqJdVq42UeAN69eqWJyVGI8xZyssNOYR3dtw86KOJM1xB7an-UdOQFUyM1rVwsmMc9K0dZ2K6rADZ13Hc4uLeI5nVgBK_46gLYUOuV8Q1UIPloGy4l3lrQXtdrC2DcsibGSzRQMOvGg0il2y0ZsVpl3379bwGBdJu9t2eHbCeS5mGb5NYoSRX69ZV_Rb5AnREvO4GqlFingJUhFDUSQkcRa4MH-We_QEaGm0_j1mOTUyfAoHmpY");'>
+              </div>
+              <div class="absolute bottom-4 left-4 z-20 flex items-center gap-2">
+                <div class="size-10 rounded-lg bg-cyan-500 flex items-center justify-center text-white shadow-lg">
+                  <span class="material-symbols-outlined">water_drop</span>
+                </div>
+                <span class="text-white font-bold">Utilities</span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-slate-900 dark:text-white text-xl font-bold mb-2">Water Supply</h3>
+              <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">Manage reports for water
+                leakages, low pressure, or contaminated Supply lines.</p>
+              <a href="/report-issue"
+                class="w-full py-3 rounded-lg border border-cyan-500 text-cyan-500 font-bold text-sm hover:bg-cyan-500 hover:text-white transition-colors block text-center no-underline">
+                Report Issue
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bg-slate-100 dark:bg-slate-950 py-20 mt-12 border-y border-slate-200 dark:border-slate-800">
+        <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10 text-center">
+          <h2 class="text-slate-900 dark:text-white text-3xl font-black mb-16">How it works</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+            <div class="hidden md:block absolute top-12 left-1/4 right-1/4 h-0.5 bg-slate-200 dark:bg-slate-800 -z-0">
+            </div>
+            <div class="flex flex-col items-center gap-4 relative z-10">
+              <div
+                class="size-20 rounded-full bg-primary flex items-center justify-center text-white text-3xl font-black shadow-xl shadow-primary/30">
+                1</div>
+              <h4 class="text-slate-900 dark:text-white text-xl font-bold">Snap &amp; Report</h4>
+              <p class="text-slate-500 dark:text-slate-400 text-sm">Upload a photo of the issue and add location
+                details.</p>
+            </div>
+            <div class="flex flex-col items-center gap-4 relative z-10">
+              <div
+                class="size-20 rounded-full bg-primary flex items-center justify-center text-white text-3xl font-black shadow-xl shadow-primary/30">
+                2</div>
+              <h4 class="text-slate-900 dark:text-white text-xl font-bold">AMC Assigns</h4>
+              <p class="text-slate-500 dark:text-slate-400 text-sm">The complaint is routed to the respective ward
+                officer automatically.</p>
+            </div>
+            <div class="flex flex-col items-center gap-4 relative z-10">
+              <div
+                class="size-20 rounded-full bg-primary flex items-center justify-center text-white text-3xl font-black shadow-xl shadow-primary/30">
+                3</div>
+              <h4 class="text-slate-900 dark:text-white text-xl font-bold">Real-time Track</h4>
+              <p class="text-slate-500 dark:text-slate-400 text-sm">Get notified via SMS and App as the work progresses
+                to completion.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 pt-16 pb-8">
+      <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+          <div class="col-span-1 md:col-span-1">
+            <div class="flex items-center gap-3 mb-6">
+              <div class="size-8 bg-primary flex items-center justify-center rounded text-white">
+                <span class="material-symbols-outlined text-lg">location_city</span>
+              </div>
+              <h2 class="text-slate-900 dark:text-white text-lg font-black tracking-tight">AMDAVAD PORTAL</h2>
+            </div>
+            <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+              The official citizen engagement platform of Ahmedabad Municipal Corporation. Empowering citizens for a
+              smarter heritage city.
+            </p>
+          </div>
+          <div>
+            <h4 class="text-slate-900 dark:text-white font-bold mb-6">Quick Links</h4>
+            <ul class="flex flex-col gap-3 text-sm text-slate-500 dark:text-slate-400">
+              <li><a class="hover:text-primary transition-colors" href="#">Emergency Contacts</a></li>
+              <li><a class="hover:text-primary transition-colors" href="https://ahmedabadcity.gov.in">AMC Official Site</a></li>
+              <li><a class="hover:text-primary transition-colors" href="https://services.india.gov.in/service/detail/pay-your-property-tax-in-ahmedabad-1">Property Tax</a></li>
+              <li><a class="hover:text-primary transition-colors" href="https://services.india.gov.in/service/detail/download-birth-and-death-certificate-in-ahmedabad-cantonment-board-gujarat">Birth &amp; Death Certificates</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-slate-900 dark:text-white font-bold mb-6">Support</h4>
+            <ul class="flex flex-col gap-3 text-sm text-slate-500 dark:text-slate-400">
+              <li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+              <li><a class="hover:text-primary transition-colors" href="#">How to Report</a></li>
+              <li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+              <li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-slate-900 dark:text-white font-bold mb-6">Connect With Us</h4>
+            <div class="flex gap-4">
+              <a class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all"
+                href="#">
+                <span class="material-symbols-outlined">share</span>
+              </a>
+              <a class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all"
+                href="#">
+                <span class="material-symbols-outlined">mail</span>
+              </a>
+              <a class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all"
+                href="#">
+                <span class="material-symbols-outlined">call</span>
+              </a>
+            </div>
+            <p class="mt-6 text-xs text-slate-400">Helpline: 155303 (Toll Free)</p>
+          </div>
+        </div>
+        <div
+          class="border-t border-slate-100 dark:border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p class="text-xs text-slate-400">© 2024 Ahmedabad Municipal Corporation. All Rights Reserved.</p>
+          <div class="flex gap-6">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-1">
+              <span class="size-1.5 rounded-full bg-accent-saffron"></span>
+              Smart City Mission
+            </span>
+            <span class="text-[10px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-1">
+              <span class="size-1.5 rounded-full bg-green-600"></span>
+              Digital India
+            </span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+        const icon = mobileMenuBtn.querySelector('.material-symbols-outlined');
+        icon.textContent = mobileMenu.classList.contains('hidden') ? 'menu' : 'close';
+      });
+    }
+  </script>
+</body>
+
+</html>

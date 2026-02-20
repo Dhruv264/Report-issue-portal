@@ -66,12 +66,10 @@
                 <div class="flex flex-1 justify-end gap-8 items-center">
                     <nav class="hidden md:flex items-center gap-8">
                         <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors"
-                         href="/worker_auth">Worker</a>
+                            href="/worker_auth">Worker</a>
                         <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors"
-                        href="/admin_login">Admin</a>
+                            href="/admin_login">Admin</a>
 
-                        <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors"
-                            href="/trackissues">Track Issue</a>
                         <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors"
                             href="/services">Services</a>
                         <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors"
@@ -116,7 +114,7 @@
                                 </h2>
                             </div>
                             <div class="flex flex-wrap gap-4">
-                                <a href="/issues"
+                                <a href="{% if logged_in %}/report-issue{% else %}/auth{% endif %}"
                                     class="flex min-w-[200px] cursor-pointer items-center justify-center gap-2 rounded-lg h-14 px-8 bg-primary text-white text-lg font-bold shadow-xl shadow-primary/20 hover:scale-105 transition-transform"
                                     role="button">
                                     <span class="material-symbols-outlined">report</span>
@@ -143,11 +141,12 @@
                         <p class="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-widest">Issues
                             Resolved</p>
                         <div class="flex items-baseline gap-2">
-                            <p class="text-slate-900 dark:text-white text-4xl font-black leading-tight">12,450+</p>
+                            <p class="text-slate-900 dark:text-white text-4xl font-black leading-tight">{{ resolved_issues }}</p>
                             <span
-                                class="text-green-500 text-sm font-bold flex items-center bg-green-500/10 px-2 py-0.5 rounded">+15%</span>
+                                class="text-green-500 text-sm font-bold flex items-center bg-green-500/10 px-2 py-0.5 rounded">All
+                                Time</span>
                         </div>
-                        <p class="text-slate-400 text-xs font-medium">Across all zones this month</p>
+                        <p class="text-slate-400 text-xs font-medium">Total resolved across all zones</p>
                     </div>
                     <div
                         class="flex flex-col gap-3 rounded-xl p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
@@ -157,25 +156,26 @@
                         <p class="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-widest">Active
                             Reports</p>
                         <div class="flex items-baseline gap-2">
-                            <p class="text-slate-900 dark:text-white text-4xl font-black leading-tight">1,205</p>
+                            <p class="text-slate-900 dark:text-white text-4xl font-black leading-tight">{{ active_issues }}</p>
                             <span
-                                class="text-green-500 text-sm font-bold flex items-center bg-green-500/10 px-2 py-0.5 rounded">+5%</span>
+                                class="text-green-500 text-sm font-bold flex items-center bg-green-500/10 px-2 py-0.5 rounded">In Progress</span>
                         </div>
                         <p class="text-slate-400 text-xs font-medium">Currently under processing</p>
                     </div>
                     <div
                         class="flex flex-col gap-3 rounded-xl p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm relative overflow-hidden group">
                         <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                            <span class="material-symbols-outlined text-6xl text-primary">schedule</span>
+                            <span class="material-symbols-outlined text-6xl text-primary">summarize</span>
                         </div>
                         <p class="text-slate-500 dark:text-slate-400 text-sm font-bold uppercase tracking-widest">
-                            Response Time</p>
+                            Total Reports</p>
                         <div class="flex items-baseline gap-2">
-                            <p class="text-slate-900 dark:text-white text-4xl font-black leading-tight">24 Hours</p>
+                            <p class="text-slate-900 dark:text-white text-4xl font-black leading-tight">{{ total_issues }}</p>
                             <span
-                                class="text-orange-500 text-sm font-bold flex items-center bg-orange-500/10 px-2 py-0.5 rounded">-2%</span>
+                                class="text-primary text-sm font-bold flex items-center bg-primary/10 px-2 py-0.5 rounded">All
+                                Time</span>
                         </div>
-                        <p class="text-slate-400 text-xs font-medium">Avg. time to first response</p>
+                        <p class="text-slate-400 text-xs font-medium">Total issues reported by citizens</p>
                     </div>
                 </div>
             </div>
@@ -216,7 +216,7 @@
                             <h3 class="text-slate-900 dark:text-white text-xl font-bold mb-2">Roads &amp; Potholes</h3>
                             <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">Report damaged
                                 roads, open manholes, or faulty streetlights in your locality.</p>
-                            <a href="/issues"
+                            <a href="{% if logged_in %}/report-issue{% else %}/auth{% endif %}"
                                 class="w-full py-3 rounded-lg border border-primary text-primary font-bold text-sm hover:bg-primary hover:text-white transition-colors"
                                 role="button">
                                 Report Issue
@@ -245,7 +245,7 @@
                             </h3>
                             <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">Request garbage
                                 collection, report illegal dumping or overflowing community bins.</p>
-                            <a href="/issues"
+                            <a href="{% if logged_in %}/report-issue{% else %}/auth{% endif %}"
                                 class="w-full py-3 rounded-lg border border-green-500 text-green-500 font-bold text-sm hover:bg-green-500 hover:text-white transition-colors"
                                 role="button">
                                 Report Issue
@@ -273,7 +273,7 @@
                             <h3 class="text-slate-900 dark:text-white text-xl font-bold mb-2">Water Supply</h3>
                             <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed mb-6">Manage reports
                                 for water leakages, low pressure, or contaminated Supply lines.</p>
-                            <a href="/issues"
+                            <a href="{% if logged_in %}/report-issue{% else %}/auth{% endif %}"
                                 class="w-full py-3 rounded-lg border border-cyan-500 text-cyan-500 font-bold text-sm hover:bg-cyan-500 hover:text-white transition-colors"
                                 role="button">
                                 Report Issue
@@ -340,9 +340,9 @@
                         <h4 class="text-slate-900 dark:text-white font-bold mb-6">Quick Links</h4>
                         <ul class="flex flex-col gap-3 text-sm text-slate-500 dark:text-slate-400">
                             <li><a class="hover:text-primary transition-colors" href="#">Emergency Contacts</a></li>
-                            <li><a class="hover:text-primary transition-colors" href="#">AMC Official Site</a></li>
-                            <li><a class="hover:text-primary transition-colors" href="#">Property Tax</a></li>
-                            <li><a class="hover:text-primary transition-colors" href="#">Birth &amp; Death
+                            <li><a class="hover:text-primary transition-colors" href="https://ahmedabadcity.gov.in">AMC Official Site</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="https://services.india.gov.in/service/detail/pay-your-property-tax-in-ahmedabad-1">Property Tax</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="https://services.india.gov.in/service/detail/download-birth-and-death-certificate-in-ahmedabad-cantonment-board-gujarat">Birth &amp; Death
                                     Certificates</a></li>
                         </ul>
                     </div>

@@ -32,8 +32,8 @@ def admin_dashboard():
     conn = get_db_connection()
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
-    # 🔹 TOTAL REPORTS
-    cur.execute("SELECT COUNT(*) AS total FROM issues")
+    # 🔹 TOTAL REPORTS (exclude rejected issues)
+    cur.execute("SELECT COUNT(*) AS total FROM issues WHERE status != 'Rejected'")
     total_reports = cur.fetchone()['total']
 
     # 🔹 PENDING REPORTS
@@ -44,10 +44,11 @@ def admin_dashboard():
     cur.execute("SELECT COUNT(*) AS assigned FROM issues WHERE status = 'In Progress'")
     assigned_works = cur.fetchone()['assigned']
 
-    # 🔹 RECENT ISSUES
+    # 🔹 RECENT ISSUES (exclude rejected issues)
     cur.execute("""
         SELECT id, title, area, category, status, created_at
         FROM issues
+        WHERE status != 'Rejected'
         ORDER BY created_at DESC
         LIMIT 10
     """)
@@ -139,3 +140,57 @@ def assign_worker_post():
     conn.close()
 
     return redirect(url_for('admin.admin_dashboard'))
+
+
+# ============================================================
+# 🟢 ACCEPT ISSUE (Admin accepts the reported issue)
+# ============================================================
+@admin_bp.route('/admin/accept-issue/<int:issue_id>', methods=['POST'])
+def accept_issue(issue_id):
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin.admin_login'))
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    # Update issue status to Accepted (or keep as Pending for assignment)
+    cur.execute("""
+        UPDATE issues
+        SET status = 'Accepted'
+        WHERE id = %s
+    """, (issue_id,))
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return redirect(url_for('admin.admin_dashboard'))
+
+
+# ============================================================
+# 🔴 REJECT ISSUE (Admin rejects the reported issue)
+# ============================================================
+@admin_bp.route('/admin/reject-issue/<int:issue_id>', methods=['POST'])
+def reject_issue(issue_id):
+    if not session.get('admin_logged_in'):
+        return redirect(url_for('admin.admin_login'))
+
+    rejection_reason = request.form.get('rejection_reason', '').strip()
+
+    conn = get_db_connection()
+    cur = conn.cursor()
+
+    # Update issue status to Rejected with reason
+    cur.execute("""
+        UPDATE issues
+        SET status = 'Rejected', rejection_reason = %s
+        WHERE id = %s
+    """, (rejection_reason, issue_id))
+
+    conn.commit()
+    cur.close()
+    conn.close()
+
+    return redirect(url_for('admin.admin_dashboard'))
+
+

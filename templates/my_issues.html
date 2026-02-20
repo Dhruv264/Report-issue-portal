@@ -94,6 +94,30 @@
             font-weight: 700;
         }
 
+        .accepted {
+            color: #10b981;
+            font-weight: 700;
+        }
+
+        .rejected {
+            color: #ef4444;
+            font-weight: 700;
+        }
+
+        .rejection-banner {
+            background: #fee2e2;
+            border-left: 4px solid #ef4444;
+            padding: 12px 16px;
+            margin-top: 12px;
+            border-radius: 6px;
+        }
+
+        .rejection-banner .reason {
+            color: #7f1d1d;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
         a {
             display: inline-block;
             margin-top: 30px;
@@ -135,6 +159,13 @@
                 </span>
                 <span>{{ issue.created_at.strftime('%d %b %Y') }}</span>
             </div>
+
+            {% if issue.status == 'Rejected' and issue.rejection_reason %}
+            <div class="rejection-banner">
+                <strong style="color: #991b1b;">Rejection Reason:</strong>
+                <p class="reason">{{ issue.rejection_reason }}</p>
+            </div>
+            {% endif %}
         </div>
 
     </div>

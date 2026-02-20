@@ -64,7 +64,14 @@
             width: 14px;
             height: 14px;
             border-radius: 50%;
-            background: {{ 'green' if worker_status == 'available' else 'gray' }};
+        }
+
+        .dot.available {
+            background: green;
+        }
+
+        .dot.unavailable {
+            background: gray;
         }
 
         .status-left p {
@@ -147,7 +154,7 @@
 <!-- STATUS -->
 <div class="status-card">
     <div class="status-left">
-        <div class="dot"></div>
+        <div class="dot {% if worker_status == 'available' %}available{% else %}unavailable{% endif %}"></div>
         <p>
             Duty Status:
             <b id="status-text">{{ worker_status }}</b>
@@ -176,7 +183,7 @@
         <p><b>Area:</b> {{ issue.area }}</p>
         <p><b>Status:</b> {{ issue.status }}</p>
 
-        <select onchange="updateIssueStatus({{ issue.id }}, this.value)">
+        <select onchange="updateIssueStatus(this.dataset.issueId, this.value)" data-issue-id="{{ issue.id }}">
             <option {% if issue.status=='Pending' %}selected{% endif %}>Pending</option>
             <option {% if issue.status=='In Progress' %}selected{% endif %}>In Progress</option>
             <option {% if issue.status=='Resolved' %}selected{% endif %}>Resolved</option>

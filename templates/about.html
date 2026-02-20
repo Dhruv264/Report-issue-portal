@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>About Amdavad Citizen Portal</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0d7ff2",
+                        "accent-saffron": "#FF9933",
+                        "background-light": "#f5f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        body {
+            font-family: "Public Sans", sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background-color: #e2e8f0;
+        }
+        .dark .timeline-line::before {
+            background-color: #1e293b;
+        }
+    </style>
+</head>
+
+<body
+    class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 transition-colors duration-200">
+    <div class="relative flex min-h-screen flex-col overflow-x-hidden">
+        <header
+            class="sticky top-0 z-50 w-full bg-white/80 dark:bg-background-dark/80 backdrop-blur-md border-b border-solid border-slate-200 dark:border-slate-800">
+            <div
+                class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10 py-3 flex items-center justify-between whitespace-nowrap">
+                <div class="flex items-center gap-3">
+                    <a href="/" class="flex items-center gap-3 no-underline">
+                        <div class="size-10 bg-primary flex items-center justify-center rounded-lg text-white">
+                            <span class="material-symbols-outlined text-2xl">location_city</span>
+                        </div>
+                        <div>
+                            <h2 class="text-primary text-xl font-black leading-tight tracking-tight">AMDAVAD</h2>
+                            <p
+                                class="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400">
+                                Citizen Portal</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="flex flex-1 justify-end gap-8 items-center">
+                    <!-- Mobile menu button -->
+                    <button id="mobile-menu-btn"
+                        class="md:hidden flex items-center justify-center size-10 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all border-none shadow-none p-0">
+                        <span class="material-symbols-outlined text-2xl">menu</span>
+                    </button>
+                    <nav class="hidden md:flex items-center gap-8">
+                        <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors"
+                            href="/">Home</a>
+                        <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors"
+                            href="/worker_auth">Worker</a>
+                        <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors"
+                            href="/admin_login">Admin</a>
+                        <a class="text-primary dark:text-primary text-sm font-bold border-b-2 border-primary"
+                            href="/about">About</a>
+                        <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors"
+                            href="/news">News</a>
+                    </nav>
+                    <div class="hidden md:flex gap-3">
+                        <a href="/auth"
+                            class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold shadow-md hover:bg-primary/90 transition-all no-underline">
+                            Sign-up
+                        </a>
+                        <a href="/auth"
+                            class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all no-underline">
+                            Login
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile menu dropdown -->
+            <div id="mobile-menu"
+                class="hidden md:hidden bg-white/95 dark:bg-background-dark/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 px-4 pb-4">
+                <nav class="flex flex-col gap-2 pt-3">
+                    <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+                        href="/">Home</a>
+                    <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+                        href="/worker_auth">Worker</a>
+                    <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+                        href="/admin_login">Admin</a>
+                    <a class="text-primary text-sm font-bold py-2 px-3 rounded-lg bg-primary/5" href="/about">About</a>
+                    <a class="text-slate-700 dark:text-slate-200 text-sm font-semibold hover:text-primary transition-colors py-2 px-3 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800"
+                        href="/news">News</a>
+                    <div class="flex gap-3 pt-3 border-t border-slate-200 dark:border-slate-800 mt-2">
+                        <a href="/auth"
+                            class="flex-1 flex cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold shadow-md hover:bg-primary/90 transition-all no-underline">Sign-up</a>
+                        <a href="/auth"
+                            class="flex-1 flex cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white text-sm font-bold border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all no-underline">Login</a>
+                    </div>
+                </nav>
+            </div>
+        </header>
+        <main class="flex-1">
+            <section class="relative h-[400px] w-full overflow-hidden">
+                <div class="absolute inset-0 bg-slate-900/60 z-10"></div>
+                <div class="absolute inset-0 bg-cover bg-center"
+                    style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCRACBbcGY3LVDkCgciSwwMAv1HZBELXE64ojASbWO5MXffDeBP_DH_oz1d4Jbt9yxXWbs3J1qldAkSkKBoXA7z3usD-v5apZV2NAXKXgdcmO6QdK3M9xSRDtlHvILh1SsFABYsz1TbTFxD9TYewsBdr3BRxOzXrR2DvFsBB5aa0oADuuorHmgAgXKyasU5nskMIvNLZWSL2AwL_PA6WQChA9YoOxJQrKSL--MyhXVXwrg-JKzWeKMTyarFXCwPT71BZK0it1WzbpY');">
+                </div>
+                <div class="relative z-20 max-w-[1200px] mx-auto px-4 h-full flex flex-col justify-center items-start">
+                    <span
+                        class="inline-flex items-center px-3 py-1 rounded-full bg-accent-saffron text-white text-xs font-bold uppercase tracking-wider mb-4">
+                        Pioneering Digital Governance
+                    </span>
+                    <h1 class="text-white text-5xl md:text-6xl font-black mb-4">About Amdavad Citizen Portal</h1>
+                    <p class="text-slate-200 text-lg md:text-xl max-w-2xl">
+                        Bridging the gap between the administration and the citizens of Ahmedabad through technology,
+                        transparency, and trust.
+                    </p>
+                </div>
+            </section>
+            <section class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10 py-20">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    <div class="space-y-8">
+                        <div>
+                            <div class="h-1 w-12 bg-primary rounded-full mb-4"></div>
+                            <h2 class="text-slate-900 dark:text-white text-4xl font-black tracking-tight mb-4">Our
+                                Mission &amp; Vision</h2>
+                            <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                                Under the Smart City Ahmedabad initiative, our goal is to enhance the quality of life
+                                for all citizens by harnessing technology that leads to smart outcomes for people.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-1 gap-6">
+                            <div
+                                class="flex gap-4 p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                                <div class="size-12 bg-primary/10 rounded-lg flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-primary text-2xl">lightbulb</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-slate-900 dark:text-white font-bold text-lg mb-1">Visionary
+                                        Innovation</h4>
+                                    <p class="text-slate-500 dark:text-slate-400 text-sm">To be India's leading smart
+                                        city by integrating sustainable infrastructure with citizen-centric digital
+                                        services.</p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex gap-4 p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                                <div
+                                    class="size-12 bg-accent-saffron/10 rounded-lg flex items-center justify-center shrink-0">
+                                    <span class="material-symbols-outlined text-accent-saffron text-2xl">groups</span>
+                                </div>
+                                <div>
+                                    <h4 class="text-slate-900 dark:text-white font-bold text-lg mb-1">Inclusive Growth
+                                    </h4>
+                                    <p class="text-slate-500 dark:text-slate-400 text-sm">Empowering every Amdavadi with
+                                        the tools to participate in the city's growth and governance.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded-2xl overflow-hidden shadow-2xl">
+                        <img alt="Ahmedabad Urban Development" class="w-full h-full object-cover aspect-square"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdROaBj4t0P7WmRyRyI-GyiRzgq8TdJ7C2WP7hQ6DMje79lUj3QSCHMfSFlb9bjIQf-OXkwSaZytqvY7zNLqtu0d5uxL5x0JR40jlv_hbvogdaq6owLDJcZqdMs4AS1eTck0hb85wZCAxnykRefldH1RXoucCnYwI14xCrbzXM_Ed4oBgMhXgl94k4odIYCfyKDajOXxNGpbFykAysWgwv07n0m8dOU6VQl1Xs3Mrk6cRTs7qJUPBA011L5TPMkK6Bk9ZIF2pmNI0" />
+                    </div>
+                </div>
+            </section>
+            <section class="bg-slate-100 dark:bg-slate-950 py-20">
+                <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10">
+                    <div
+                        class="bg-white dark:bg-slate-900 rounded-3xl overflow-hidden shadow-xl flex flex-col md:flex-row">
+                        <div class="md:w-1/3 shrink-0 relative h-[400px] md:h-auto">
+                            <img alt="Municipal Commissioner" class="w-full h-full object-cover object-top"
+                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2WSShV2TC2fTbbkALZNzFDKgtO1amRu67zR6OFTmIP1jg9TCq-E6NU0RO1FVo7_dIgKtKJolYzDz_7LJaIgN2Rnj2aVGI-lUkTsKZ4k-fYOrkficPWVdwIqocQL7pTDCOa9DdKvgTfCow3W-Yzo6GS7__CymjHZ1fq3kfn6UcI_3ZvFFxwBysD6ReQOhMurNCfECr58qsN1RFBy4E5y8r9wAHyTi6Ao_1sSCL38o4Y0GMmwSpYjpPW264VeXxQlccf97RE5KrVTw" />
+                            <div
+                                class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-900/80 to-transparent text-white">
+                                <p class="font-bold text-lg">M. Thennarasan, IAS</p>
+                                <p class="text-xs uppercase tracking-widest opacity-80">Municipal Commissioner, AMC</p>
+                            </div>
+                        </div>
+                        <div class="p-8 md:p-16 flex flex-col justify-center">
+                            <span class="material-symbols-outlined text-5xl text-primary/20 mb-6">format_quote</span>
+                            <h3
+                                class="text-slate-900 dark:text-white text-2xl md:text-3xl font-bold italic mb-8 leading-snug">
+                                "Our commitment is to create a transparent, accountable, and responsive administration.
+                                The Amdavad Citizen Portal is not just a platform; it is a promise of better governance
+                                for every resident."
+                            </h3>
+                            <div class="space-y-4 text-slate-600 dark:text-slate-400 leading-relaxed">
+                                <p>
+                                    Ahmedabad is a city that beautifully blends its UNESCO World Heritage status with
+                                    modern aspirations. As we move towards a 'Digital Amdavad', we invite citizens to
+                                    actively engage with us.
+                                </p>
+                                <p>
+                                    This portal is designed to put power back into your hands, allowing you to report
+                                    grievances, track resolutions, and access municipal services from the comfort of
+                                    your home. Together, we can build the city we envision.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10 py-24">
+                <div class="text-center mb-16">
+                    <h2 class="text-slate-900 dark:text-white text-4xl font-black mb-4">Journey of Transformation</h2>
+                    <p class="text-slate-500 max-w-2xl mx-auto">Tracing the milestones of Ahmedabad's digital and urban
+                        evolution.</p>
+                </div>
+                <div class="relative timeline-line space-y-12">
+                    <div class="relative flex items-center justify-center md:justify-between group">
+                        <div class="hidden md:block w-5/12 text-right pr-8">
+                            <h4 class="text-primary font-black text-xl mb-1">2017</h4>
+                            <p class="text-slate-600 dark:text-slate-400 font-medium">Ahmedabad declared India's first
+                                UNESCO World Heritage City.</p>
+                        </div>
+                        <div
+                            class="absolute left-1/2 -translate-x-1/2 size-4 rounded-full bg-primary border-4 border-white dark:border-slate-800 z-10 shadow-lg">
+                        </div>
+                        <div class="w-full md:w-5/12 pl-8 md:pl-8">
+                            <div
+                                class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm md:block hidden">
+                                <img alt="Heritage Site" class="w-full h-32 object-cover rounded-lg mb-4"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGPD_J7jmLVaH8XkoEnqDi8XwxnqJdVq42UeAN69eqWJyVGI8xZyssNOYR3dtw86KOJM1xB7an-UdOQFUyM1rVwsmMc9K0dZ2K6rADZ13Hc4uLeI5nVgBK_46gLYUOuV8Q1UIPloGy4l3lrQXtdrC2DcsibGSzRQMOvGg0il2y0ZsVpl3379bwGBdJu9t2eHbCeS5mGb5NYoSRX69ZV_Rb5AnREvO4GqlFingJUhFDUSQkcRa4MH-We_QEaGm0_j1mOTUyfAoHmpY" />
+                                <p class="text-xs font-bold text-slate-400 uppercase">Urban Milestone</p>
+                            </div>
+                            <div class="md:hidden">
+                                <h4 class="text-primary font-black text-xl mb-1">2017</h4>
+                                <p class="text-slate-600 dark:text-slate-400 font-medium">Ahmedabad declared India's
+                                    first UNESCO World Heritage City.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative flex items-center justify-center md:justify-between group">
+                        <div class="w-full md:w-5/12 pr-8 text-right hidden md:block">
+                            <div
+                                class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                                <img alt="Smart City Systems" class="w-full h-32 object-cover rounded-lg mb-4"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_NBkDFs4Hvm05Gj1NYq6SyUmMZZyVZ4I6qHzp1VlX1EV_LL9wHTXwiwcb2Fj42_NFYoO-PQfGmF0SirK6PZrXlojrtKmNS7mEM2A5cd1RzYMcakf-6FBO4jigR09zEnGnTleLrngiXWU14CBsWkh6Bc4PWrt4yMbWlry4ntcJEA5R_FNQxdO4A1lE23_z1zE4AFQtjl76NcUla3ovlcE6dVu7nIoEe5t8l-afhoUDyxTAw94icRmc7-1Mv6QNk6WLi7LhpEshiOA" />
+                                <p class="text-xs font-bold text-slate-400 uppercase">Service Launch</p>
+                            </div>
+                        </div>
+                        <div
+                            class="absolute left-1/2 -translate-x-1/2 size-4 rounded-full bg-accent-saffron border-4 border-white dark:border-slate-800 z-10 shadow-lg">
+                        </div>
+                        <div class="w-full md:w-5/12 pl-8">
+                            <h4 class="text-accent-saffron font-black text-xl mb-1">2020</h4>
+                            <h5 class="text-slate-900 dark:text-white font-bold mb-2">Smart Ahmedabad 2.0</h5>
+                            <p class="text-slate-600 dark:text-slate-400 font-medium">Launch of the Integrated Command
+                                and Control Centre (ICCC) for real-time city management.</p>
+                        </div>
+                    </div>
+                    <div class="relative flex items-center justify-center md:justify-between group">
+                        <div class="hidden md:block w-5/12 text-right pr-8">
+                            <h4 class="text-primary font-black text-xl mb-1">2024</h4>
+                            <h5 class="text-slate-900 dark:text-white font-bold mb-2">Citizen Portal V3</h5>
+                            <p class="text-slate-600 dark:text-slate-400 font-medium">Introduction of AI-driven
+                                grievance routing and mobile-first citizen engagement platform.</p>
+                        </div>
+                        <div
+                            class="absolute left-1/2 -translate-x-1/2 size-4 rounded-full bg-primary border-4 border-white dark:border-slate-800 z-10 shadow-lg">
+                        </div>
+                        <div class="w-full md:w-5/12 pl-8">
+                            <div
+                                class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm md:block hidden">
+                                <img alt="Modern Portal" class="w-full h-32 object-cover rounded-lg mb-4"
+                                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRACBbcGY3LVDkCgciSwwMAv1HZBELXE64ojASbWO5MXffDeBP_DH_oz1d4Jbt9yxXWbs3J1qldAkSkKBoXA7z3usD-v5apZV2NAXKXgdcmO6QdK3M9xSRDtlHvILh1SsFABYsz1TbTFxD9TYewsBdr3BRxOzXrR2DvFsBB5aa0oADuuorHmgAgXKyasU5nskMIvNLZWSL2AwL_PA6WQChA9YoOxJQrKSL--MyhXVXwrg-JKzWeKMTyarFXCwPT71BZK0it1WzbpY" />
+                                <p class="text-xs font-bold text-slate-400 uppercase">Digital Transformation</p>
+                            </div>
+                            <div class="md:hidden">
+                                <h4 class="text-primary font-black text-xl mb-1">2024</h4>
+                                <p class="text-slate-600 dark:text-slate-400 font-medium">Introduction of AI-driven
+                                    grievance routing and mobile-first engagement.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="bg-slate-900 py-24 text-white">
+                <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10">
+                    <div class="flex flex-col lg:flex-row gap-16 items-center">
+                        <div class="lg:w-1/2">
+                            <h2 class="text-4xl font-black mb-6">Our Impact on Governance</h2>
+                            <p class="text-slate-400 text-lg mb-8 leading-relaxed">
+                                Transparency and accountability are at the heart of our operations. We track every
+                                report and every resolution to ensure measurable improvement in city services.
+                            </p>
+                            <div class="grid grid-cols-2 gap-8">
+                                <div>
+                                    <h3 class="text-4xl font-black text-primary mb-2">98%</h3>
+                                    <p class="text-sm font-bold uppercase tracking-wider text-slate-500">Grievance
+                                        Redressal</p>
+                                    <p class="text-xs text-slate-500 mt-1">Successfully resolved cases</p>
+                                </div>
+                                <div>
+                                    <h3 class="text-4xl font-black text-accent-saffron mb-2">12M+</h3>
+                                    <p class="text-sm font-bold uppercase tracking-wider text-slate-500">Citizen
+                                        Interactions</p>
+                                    <p class="text-xs text-slate-500 mt-1">Through digital channels</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lg:w-1/2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+                                <span class="material-symbols-outlined text-primary text-3xl mb-4">visibility</span>
+                                <h4 class="font-bold text-lg mb-2">Live Transparency</h4>
+                                <p class="text-sm text-slate-400">Track the status of your complaints and municipal
+                                    projects in real-time.</p>
+                            </div>
+                            <div class="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+                                <span class="material-symbols-outlined text-green-500 text-3xl mb-4">eco</span>
+                                <h4 class="font-bold text-lg mb-2">Sustainable Efforts</h4>
+                                <p class="text-sm text-slate-400">Prioritizing green waste management and
+                                    energy-efficient lighting across zones.</p>
+                            </div>
+                            <div class="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+                                <span class="material-symbols-outlined text-accent-saffron text-3xl mb-4">gavel</span>
+                                <h4 class="font-bold text-lg mb-2">Governance Audit</h4>
+                                <p class="text-sm text-slate-400">Quarterly public reports on departmental performance
+                                    and budget utilization.</p>
+                            </div>
+                            <div class="bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+                                <span class="material-symbols-outlined text-blue-400 text-3xl mb-4">phonelink</span>
+                                <h4 class="font-bold text-lg mb-2">Digital First</h4>
+                                <p class="text-sm text-slate-400">Reducing paperwork and wait times through end-to-end
+                                    digital processing.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 pt-16 pb-8">
+            <div class="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-10">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                    <div class="col-span-1 md:col-span-1">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="size-8 bg-primary flex items-center justify-center rounded text-white">
+                                <span class="material-symbols-outlined text-lg">location_city</span>
+                            </div>
+                            <h2 class="text-slate-900 dark:text-white text-lg font-black tracking-tight">AMDAVAD PORTAL
+                            </h2>
+                        </div>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                            The official citizen engagement platform of Ahmedabad Municipal Corporation. Empowering
+                            citizens for a smarter heritage city.
+                        </p>
+                    </div>
+                    <div>
+                        <h4 class="text-slate-900 dark:text-white font-bold mb-6">Quick Links</h4>
+                        <ul class="flex flex-col gap-3 text-sm text-slate-500 dark:text-slate-400">
+                            <li><a class="hover:text-primary transition-colors" href="#">Emergency Contacts</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="https://ahmedabadcity.gov.in">AMC Official Site</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="https://services.india.gov.in/service/detail/pay-your-property-tax-in-ahmedabad-1">Property Tax</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="https://services.india.gov.in/service/detail/download-birth-and-death-certificate-in-ahmedabad-cantonment-board-gujarat">Birth &amp; Certificates</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-slate-900 dark:text-white font-bold mb-6">Support</h4>
+                        <ul class="flex flex-col gap-3 text-sm text-slate-500 dark:text-slate-400">
+                            <li><a class="hover:text-primary transition-colors" href="#">Help Center</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="#">How to Report</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="#">Privacy Policy</a></li>
+                            <li><a class="hover:text-primary transition-colors" href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="text-slate-900 dark:text-white font-bold mb-6">Connect With Us</h4>
+                        <div class="flex gap-4">
+                            <a class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all"
+                                href="#">
+                                <span class="material-symbols-outlined text-xl">share</span>
+                            </a>
+                            <a class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all"
+                                href="#">
+                                <span class="material-symbols-outlined text-xl">mail</span>
+                            </a>
+                            <a class="size-10 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 hover:bg-primary hover:text-white transition-all"
+                                href="#">
+                                <span class="material-symbols-outlined text-xl">call</span>
+                            </a>
+                        </div>
+                        <p class="mt-6 text-xs text-slate-400">Helpline: 155303 (Toll Free)</p>
+                    </div>
+                </div>
+                <div
+                    class="border-t border-slate-100 dark:border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-xs text-slate-400">© 2024 Ahmedabad Municipal Corporation. All Rights Reserved.</p>
+                    <div class="flex gap-6">
+                        <span
+                            class="text-[10px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-1">
+                            <span class="size-1.5 rounded-full bg-accent-saffron"></span>
+                            Smart City Mission
+                        </span>
+                        <span
+                            class="text-[10px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-1">
+                            <span class="size-1.5 rounded-full bg-green-600"></span>
+                            Digital India
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                const icon = mobileMenuBtn.querySelector('.material-symbols-outlined');
+                icon.textContent = mobileMenu.classList.contains('hidden') ? 'menu' : 'close';
+            });
+        }
+    </script>
+</body>
+
+</html>

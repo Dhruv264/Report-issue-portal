@@ -41,11 +41,72 @@ def allowed_file(filename):
 # --------------------------------------------------
 @app.route('/')
 def home():
-    return render_template('Home.html')
+    logged_in = 'user_id' in session
+    
+    # Fetch statistics from database
+    conn = get_db_connection()
+    cur = conn.cursor()
+    
+    # Total issues (exclude rejected)
+    cur.execute("SELECT COUNT(*) FROM issues WHERE status != 'Rejected'")
+    total_issues = cur.fetchone()[0] or 0
+    
+    # Resolved issues
+    cur.execute("SELECT COUNT(*) FROM issues WHERE status = 'Resolved'")
+    resolved_issues = cur.fetchone()[0] or 0
+    
+    # Active issues (Pending + In Progress + Accepted)
+    cur.execute("SELECT COUNT(*) FROM issues WHERE status IN ('Pending', 'In Progress', 'Accepted')")
+    active_issues = cur.fetchone()[0] or 0
+    
+    cur.close()
+    conn.close()
+    
+    return render_template('Home.html', logged_in=logged_in, 
+                         total_issues=total_issues, 
+                         resolved_issues=resolved_issues, 
+                         active_issues=active_issues)
 
 @app.route('/auth')
 def auth():
     return render_template('index.html')
+
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
+@app.route('/services')
+def services():
+    return render_template('services.html')
+
+@app.route('/user-home')
+def user_home():
+    if 'user_id' not in session:
+        return redirect(url_for('auth'))
+    
+    # Fetch statistics from database
+    conn = get_db_connection()
+    cur = conn.cursor()
+    
+    # Total issues (exclude rejected)
+    cur.execute("SELECT COUNT(*) FROM issues WHERE status != 'Rejected'")
+    total_issues = cur.fetchone()[0] or 0
+    
+    # Resolved issues
+    cur.execute("SELECT COUNT(*) FROM issues WHERE status = 'Resolved'")
+    resolved_issues = cur.fetchone()[0] or 0
+    
+    # Active issues (Pending + In Progress + Accepted)
+    cur.execute("SELECT COUNT(*) FROM issues WHERE status IN ('Pending', 'In Progress', 'Accepted')")
+    active_issues = cur.fetchone()[0] or 0
+    
+    cur.close()
+    conn.close()
+    
+    return render_template('user.html', 
+                         total_issues=total_issues, 
+                         resolved_issues=resolved_issues, 
+                         active_issues=active_issues)
 
 
 # --------------------------------------------------
@@ -125,7 +186,7 @@ def dashboard():
     cur = conn.cursor(cursor_factory=RealDictCursor)
 
     cur.execute("""
-        SELECT title, category, status, created_at
+        SELECT title, category, status, created_at, rejection_reason
         FROM issues
         WHERE user_id = %s
         ORDER BY created_at DESC
@@ -202,7 +263,8 @@ def my_issues():
             category,
             status,
             created_at,
-            photo_filename
+            photo_filename,
+            rejection_reason
         FROM issues
         WHERE user_id = %s
         ORDER BY created_at DESC
@@ -240,7 +302,7 @@ def delete_issues():
         return redirect(url_for('delete_issues'))
 
     cur.execute("""
-        SELECT id, title, category, status, created_at, photo_filename
+        SELECT id, title, category, status, created_at, photo_filename, rejection_reason
         FROM issues
         WHERE user_id = %s
         ORDER BY created_at DESC
